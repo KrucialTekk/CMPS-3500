@@ -2,7 +2,7 @@
 # ASGT: Group Project
 # FILE: project3500.py
 # DATE: 
-#To compile and run python from odin, type 'python project3500.py' or './project3500.py'
+#To compile and run python from odin, type 'python3 project3500.py' or './project3500.py'
 
 import pandas as pd #library to search, sort, parse the csv file
 
