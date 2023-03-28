@@ -2,7 +2,7 @@
 # Asgt: CLASS Project
 # PYTHON IMPLEMENTATION: BASIC DATA ANALYSIS
 # date: 03/27/23  - 04/01/23
-# Names: Andrew Nguyen
+# Names: Andrew Nguyen, 
 # FILE: project3500.py
 # description: Implementation Basic Data Analysis Routines
 # To compile and run python from odin, type 'python3 project3500.py' or './project3500.py'
