@@ -9,6 +9,7 @@
 
 import pandas as pd #library to search, sort, parse the csv file
 import datetime
+import numpy 
 
 #Main menu++++++++++++++++++++++++++++++++++++++++
 print("Main Menu:\n*********")
