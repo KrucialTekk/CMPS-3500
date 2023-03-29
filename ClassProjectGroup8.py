@@ -3,9 +3,9 @@
 # PYTHON IMPLEMENTATION: BASIC DATA ANALYSIS
 # date: 03/27/23  - 04/01/23
 # Group 8: Andrew Nguyen, Chidiebere Okpara, Conner Estes, and Noah Malleux 
-# FILE: project3500.py
+# FILE: ClassProjectGroup8.py
 # description: Implementation Basic Data Analysis Routines
-# To compile and run python from odin, type 'python3 project3500.py' or './project3500.py'
+# To compile and run python from odin, type 'python3 ClassProjectGroup8.py' or './ClassProjectGroup8.py'
 
 import pandas as pd #library to search, sort, parse the csv file
 import datetime
