@@ -21,8 +21,12 @@ while select.isnumeric() != 1:#Error check is input is not a number
 while True:
     if (select == "1"):
         data_frame = pd.read_csv('Crime_Data_from_2017_to_2019.csv')#read the csv
+        current_time = datetime.datetime.now()#[current time] 'YYYY-MM-DD HH:MM:SS.ssssss'
+        formatted_time = current_time.strftime('%H:%M:%S') #[current time] HH:MM:SS
         if data_frame.empty != True:
-            print("File loaded successfully!")
+            print(formatted_time)
+            print("\nFile loaded successfully!")
+
     elif (select == "2"):
         #example of grouping the csv file for something specific
         list2 = ["LAT", "LON"]
