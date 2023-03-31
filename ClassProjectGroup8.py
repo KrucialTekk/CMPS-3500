@@ -30,20 +30,22 @@ while True:
             print(formatted_time,"Select the numer of the file to load from the list below:")
             print(" Please select an option:")
             print(" [1] Crime_Data_from_2017_to_2019.csv")
-        start_time = time.time()
-        with open('Crime_Data_from_2017_to_2019.csv', 'r') as file: #open and close file
-            reader = csv.reader(file) #obj from the csv file
-            header = next(reader) #get the row
-            col = len(header) #count the number of colums in the row
-            row = sum(1 for row in reader) #add the number of rows 
-            for row in reader:
-                pass
-        end_time = time.time()
-        load_time = end_time - start_time
-        print(formatted_time,f'Total columns read: {col}')
-        print(formatted_time,f'Total rows read: {row}')
-        print("\nFile loaded successfully!")
-        print(f'Time to load {load_time:.3f} sec.')
+        if(select == "1"):
+            print(formatted_time,"1")
+            start_time = time.time()
+            with open('Crime_Data_from_2017_to_2019.csv', 'r') as file: #open and close file
+                reader = csv.reader(file) #obj from the csv file
+                header = next(reader) #get the row
+                col = len(header) #count the number of colums in the row
+                row = sum(1 for row in reader) #add the number of rows 
+                for row in reader:
+                 pass
+            end_time = time.time()
+            load_time = end_time - start_time
+            print(formatted_time,f'Total columns read: {col}')
+            print(formatted_time,f'Total rows read: {row}')
+            print("\nFile loaded successfully!")
+            print(f'Time to load {load_time:.3f} sec.')
 
     elif (select == "2"):
         #example of grouping the csv file for something specific
