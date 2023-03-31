@@ -10,6 +10,7 @@
 import pandas as pd #library to search, sort, parse the csv file
 import datetime
 import numpy 
+import csv #read the csv file(s)
 
 #Main menu++++++++++++++++++++++++++++++++++++++++
 print("Main Menu:\n*********")
@@ -28,6 +29,13 @@ while True:
             print(formatted_time,"Select the numer of the file to load from the list below:")
             print(" Please select an option:")
             print(" [1] Crime_Data_from_2017_to_2019.csv")
+        with open('Crime_Data_from_2017_to_2019.csv', 'r') as file: #open and close file
+            reader = csv.reader(file) #obj from the csv file
+            header = next(reader) #get the row
+            col = len(header) #count the number of colums in the row
+            row = sum(1 for row in reader) #add the number of rows 
+            print(formatted_time,f'Total columns read: {col}')
+            print(formatted_time,f'Total rows read: {row}')
             print("\nFile loaded successfully!")
 
     elif (select == "2"):
