@@ -47,6 +47,7 @@ while True:
 
     elif (select == "2"):
         #example of grouping the csv file for something specific
+        data_frame = pd.read_csv('Crime_Data_from_2017_to_2019.csv')#read the csv
         list2 = ["LAT", "LON"]
         location = data_frame.groupby(["LOCATION"], as_index=False)[list2].count()
         print(location.head(10))
