@@ -24,7 +24,7 @@ while True:
         current_time = datetime.datetime.now()#[current time] 'YYYY-MM-DD HH:MM:SS.ssssss'
         formatted_time = current_time.strftime('%H:%M:%S') #[current time] HH:MM:SS
         if data_frame.empty != True:
-            print(formatted_time)
+            print(formatted_time,"Select the numer of the file to load from the list below:")
             print("\nFile loaded successfully!")
 
     elif (select == "2"):
