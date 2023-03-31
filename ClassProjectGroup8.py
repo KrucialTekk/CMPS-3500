@@ -48,11 +48,36 @@ while True:
             print(f'Time to load {load_time:.3f} sec.')
 
     elif (select == "2"):
-        #example of grouping the csv file for something specific
         data_frame = pd.read_csv('Crime_Data_from_2017_to_2019.csv')#read the csv
-        list2 = ["LAT", "LON"]
-        location = data_frame.groupby(["LOCATION"], as_index=False)[list2].count()
-        print(location.head(10))
+        current_time = datetime.datetime.now()#[current time] 'YYYY-MM-DD HH:MM:SS.ssssss'
+        formatted_time = current_time.strftime('%H:%M:%S') #[current time] HH:MM:SS
+        print("Exploring Data: \n******************")
+        select_2 = input("(21) List all columns:\n(22) Drop Columns:\n(23) Describe Columns:\n(24) Search Element in Column:\n(25) Back to Main Menu\n")
+        if (select_2 == "21"):
+            print('(21) List all columns: \n******************')
+
+        if (select_2 == "22"):
+            print('(22) Drop Columns: \n******************')
+            print('Select a column number to Drop from the list:')
+
+        if (select_2 == "23"):
+            print('(23) Describe Columns: \n******************')
+            print(formatted_time,'Select column number to Describe:\n') 
+            print('Select a column to Drop from the list:')
+
+        if (select_2 == "24"):
+            print('(24) Search Element in Column: \n******************')
+            print(formatted_time, 'Select column number to perform a search:\n') 
+            print('Select a column to Drop from the list:')
+
+        if (select_2 == "25"):
+            print('(25)Back to Main Menu: \n******************') # Make it when the user selecet 25, it goes back to main
+            select = input("(1) Load Data\n(2) Exploring Data\n(3) Data Analysis\n(4) Print Data Set\n(5) Quit\n")
+
+        #example of grouping the csv file for something specific
+        #list2 = ["LAT", "LON"]
+        #location = data_frame.groupby(["LOCATION"], as_index=False)[list2].count()
+        #print(location.head(10))
     #elif (select == "3"): #Data analysis called here
     elif (select == "4"):
         print(data_frame.head(5))#this prints 5 lines of data_frame
