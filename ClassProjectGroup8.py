@@ -13,7 +13,16 @@ import numpy
 import csv #read the csv file(s)
 import time #fine the load time or time to load 
 
-#Main menu++++++++++++++++++++++++++++++++++++++++
+# Function Code Here ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+def testFunc(num1, num2):
+    sum = num1 + num2
+    return sum
+
+def counter(): #this doesnt do anything yet
+    return 0
+
+# Main Menu++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 data_frame = pd.read_csv('Crime_Data_from_2017_to_2019.csv')#read the csv (move these from local to global)
 current_time = datetime.datetime.now()#[current time] 'YYYY-MM-DD HH:MM:SS.ssssss'
 formatted_time = current_time.strftime('%H:%M:%S') #[current time] HH:MM:SS
@@ -31,10 +40,10 @@ while True:
         if data_frame.empty != True:
             print("Load data set:\n**************")
             print(formatted_time,"Select the numer of the file to load from the list below:")
-            print(" Please select an option:")
-            print(" [1] Crime_Data_from_2017_to_2019.csv")
-        if(select == "1"):
-            print(formatted_time,"1")
+           # print(" Please select an option:")
+            select_file = input(" Please select a file: \n[1] Crime_Data_from_2017_to_2019.csv\n[2] Crime_Data_from_2020_to_2021.csv\n[3] Test.csv\n")
+        if(select_file == "1"):
+            print(formatted_time,"You selected: Option 1")
             start_time = time.time()
             with open('Crime_Data_from_2017_to_2019.csv', 'r') as file: #open and close file
                 reader = csv.reader(file) #obj from the csv file
@@ -49,6 +58,12 @@ while True:
             print(formatted_time,f'Total rows read: {row}')
             print("\nFile loaded successfully!")
             print(f'Time to load {load_time:.3f} sec.')
+        if(select_file == "2"):
+            print("Code to load file [2] not implemented yet")
+        if(select_file == "3"):
+            print("Code to load file [3] not implemented yet\n")
+            calltest = testFunc(3,6)
+            print(calltest)
 
     elif (select == "2"):
         print("Exploring Data: \n******************")
@@ -91,3 +106,4 @@ while True:
         exit(0)
     print("\n-Input another valid command-")
     select = input("(1) Load Data\n(2) Exploring Data\n(3) Data Analysis\n(4) Print Data Set\n(5) Quit\n")
+
