@@ -14,6 +14,9 @@ import csv #read the csv file(s)
 import time #fine the load time or time to load 
 
 #Main menu++++++++++++++++++++++++++++++++++++++++
+data_frame = pd.read_csv('Crime_Data_from_2017_to_2019.csv')#read the csv (move these from local to global)
+current_time = datetime.datetime.now()#[current time] 'YYYY-MM-DD HH:MM:SS.ssssss'
+formatted_time = current_time.strftime('%H:%M:%S') #[current time] HH:MM:SS
 print("Main Menu:\n*********")
 select = input("(1) Load Data\n(2) Exploring Data\n(3) Data Analysis\n(4) Print Data Set\n(5) Quit\n")
 while select.isnumeric() != 1:#Error check is input is not a number
@@ -22,9 +25,9 @@ while select.isnumeric() != 1:#Error check is input is not a number
 
 while True:
     if (select == "1"):
-        data_frame = pd.read_csv('Crime_Data_from_2017_to_2019.csv')#read the csv
-        current_time = datetime.datetime.now()#[current time] 'YYYY-MM-DD HH:MM:SS.ssssss'
-        formatted_time = current_time.strftime('%H:%M:%S') #[current time] HH:MM:SS
+        #data_frame = pd.read_csv('Crime_Data_from_2017_to_2019.csv')#read the csv
+        #current_time = datetime.datetime.now()#[current time] 'YYYY-MM-DD HH:MM:SS.ssssss'
+        #formatted_time = current_time.strftime('%H:%M:%S') #[current time] HH:MM:SS
         if data_frame.empty != True:
             print("Load data set:\n**************")
             print(formatted_time,"Select the numer of the file to load from the list below:")
@@ -48,9 +51,6 @@ while True:
             print(f'Time to load {load_time:.3f} sec.')
 
     elif (select == "2"):
-        data_frame = pd.read_csv('Crime_Data_from_2017_to_2019.csv')#read the csv
-        current_time = datetime.datetime.now()#[current time] 'YYYY-MM-DD HH:MM:SS.ssssss'
-        formatted_time = current_time.strftime('%H:%M:%S') #[current time] HH:MM:SS
         print("Exploring Data: \n******************")
         select_2 = input("(21) List all columns:\n(22) Drop Columns:\n(23) Describe Columns:\n(24) Search Element in Column:\n(25) Back to Main Menu\n")
         if (select_2 == "21"):
