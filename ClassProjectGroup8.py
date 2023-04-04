@@ -55,10 +55,16 @@ while True:
         select_2 = input("(21) List all columns:\n(22) Drop Columns:\n(23) Describe Columns:\n(24) Search Element in Column:\n(25) Back to Main Menu\n")
         if (select_2 == "21"):
             print('(21) List all columns: \n******************')
+            with open('Crime_Data_from_2017_to_2019.csv', 'r') as file: #open and close file
+                reader = csv.reader(file) #obj from the csv file
+                columns = next(reader) #get the row
+                for i, column in enumerate(columns):
+                    print(f"[{1+i}] <{column} >") #print the index of the columns 
 
         if (select_2 == "22"):
             print('(22) Drop Columns: \n******************')
             print('Select a column number to Drop from the list:')
+            
 
         if (select_2 == "23"):
             print('(23) Describe Columns: \n******************')
