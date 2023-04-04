@@ -64,7 +64,23 @@ while True:
         if (select_2 == "22"):
             print('(22) Drop Columns: \n******************')
             print('Select a column number to Drop from the list:')
+            with open('Crime_Data_from_2017_to_2019.csv', 'r') as file: #open and close file and display the columns 
+                reader = csv.reader(file) #obj from the csv file
+                columns = next(reader) #get the row
+                for i, column in enumerate(columns):
+                    print(f"[{1+i}] <{column} >") #print the index of the columns 
             
+            drop_column = int(input("Select the desired column you want to drop: "))#drop columns 
+
+            with open('Crime_Data_from_2017_to_2019.csv', 'r') as file_in, open('new_Crime_Data_from_2017_to_2019.csv', 'w', newline='' ) as file_out:
+                reader = csv.reader(file_in) #read to csv file 
+                writer = csv.writer(file_out) #write to csv file 
+                for row in reader:
+                    del row[drop_column]
+                    writer.writerow(row)
+
+            print(formatted_time,f' {[drop_column]}')
+            print(formatted_time,f' Column {[drop_column]} dropped!')
 
         if (select_2 == "23"):
             print('(23) Describe Columns: \n******************')
