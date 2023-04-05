@@ -150,7 +150,7 @@ while True:
 
             if (select_2 == "25"):
                 print('(25)Back to Main Menu: \n******************') # Make it when the user selecet 25, it goes back to main
-                select = input("(1) Load Data\n(2) Exploring Data\n(3) Data Analysis\n(4) Print Data Set\n(5) Quit\n")
+            #    select = input("(1) Load Data\n(2) Exploring Data\n(3) Data Analysis\n(4) Print Data Set\n(5) Quit\n")
 
         # example of grouping the csv file for something specific
         # list2 = ["LAT", "LON"]
