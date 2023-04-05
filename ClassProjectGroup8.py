@@ -53,7 +53,26 @@ def count_elements(file_path, column_index ):
 # mode function or most common
 
 # Standarad Deviation (SD)
+def standard_deviation(filename, col_name):
+  data = pd.read_csv(filename)
+  arr = data[col_name].tolist()
+  ave = average(arr)
+  pop_size = len(arr)
+  summation = 0
+  i = 0
+  while i < pop_size:
+    value = arr[i]
+    summation += (value - ave)**2
+    i += 1
+  radicand = summation/pop_size
+  sd = radicand**(1/2)
+  return sd
+
 # Variance function 
+def variance(filename, col_name):
+  num = standard_deviation(filename, col_name)
+  variance = num ** 2
+  return variance
 
 # Min function
 # Max function 
