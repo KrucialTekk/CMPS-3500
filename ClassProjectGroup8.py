@@ -101,7 +101,22 @@ def variance(filename, col_name):
   return variance
 
 # Min function
+def minimum(filename, col_name):
+  data = pd.read_csv(filename)
+  arr = data[col_name].tolist()
+  max = len(arr) - 1
+  quicksort(arr, 0, max)
+  min = arr[0]
+  return min
+
 # Max function 
+def maximum(filename, col_name):
+  data = pd.read_csv(filename)
+  arr = data[col_name].tolist()
+  max = len(arr) - 1
+  quicksort(arr, 0, max)
+  maximum = arr[max]
+  return maximum
 
 # Main Menu++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
