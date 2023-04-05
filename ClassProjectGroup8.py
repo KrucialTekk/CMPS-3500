@@ -37,6 +37,11 @@ def testFunc(num1, num2):
 def counter(): #this doesnt do anything yet
     return 0
 
+def create_array(filename,col_name):
+  data = pd.read_csv(filename)
+  arr = data[col_name].tolist()
+  return arr
+
 # function for counting elements based on user inputted column
 def count_elements(file_path, column_index ):
     element_count = 0
@@ -50,8 +55,7 @@ def count_elements(file_path, column_index ):
 # unqiue 
 # mean
 def average(filename, col_name):
-  data = pd.read_csv(filename)
-  arr = data[col_name].tolist()
+  arr = create_array(filename,col_name)
   summation = 0
   count = len(arr)
   i = 0
@@ -61,6 +65,72 @@ def average(filename, col_name):
   ave = summation/count
   return ave
 
+# mode function or most common
+
+# Variance function 
+def variance(filename, col_name):
+  arr = create_array(filename,col_name)
+  ave = average(filename, col_name)
+  pop_size = len(arr)
+  summation = 0
+  i = 0
+  while i < pop_size:
+    value = arr[i]
+    summation += (value - ave)**2
+    i += 1
+  variance = (summation/pop_size)
+  return variance
+
+# Standarad Deviation (SD)
+def standard_deviation(filename, col_name):
+  radicand = variance(filename, col_name)
+  sd = radicand**(1/2)
+  return sd
+
+# Function to find the partition position
+def partition(array, low, high):
+    pivot = array[high]
+    i = low - 1
+    # compare each element with pivot
+    for j in range(low, high):
+        if array[j] <= pivot:
+            i = i + 1
+            # Swapping element at i with element at j
+            (array[i], array[j]) = (array[j], array[i])
+    # Swap the pivot element with the greater element specified by i
+    (array[i + 1], array[high]) = (array[high], array[i + 1])
+    return i + 1
+
+def quicksort(array, low, high):
+    if low < high:
+        pi = partition(array, low, high)
+        quicksort(array, low, pi - 1)
+        quicksort(array, pi + 1, high)
+
+# Min function
+def minimum(filename, col_name):
+  arr = create_array(filename,col_name)
+  max = len(arr) - 1
+  quicksort(arr, 0, max)
+  min = arr[0]
+  return min
+
+# Max function 
+def maximum(filename, col_name):
+  arr = create_array(filename,col_name)
+  max = len(arr) - 1
+  quicksort(arr, 0, max)
+  maximum = arr[max]
+  return maximum
+
+def median(file_path, col_name):  
+  # mean function or middle: High + low / 2 = middle
+  low = minimum(file_path, col_name)
+  high = maximum(file_path, col_name)
+  median = (high + low) / 2
+  return median
+
+"""
 # median function or most common 
 def find_median( file_path, column_index ): # mean function or middle: High + low / 2 = middle 
     with open(file_path, 'r') as file:
@@ -76,32 +146,8 @@ def find_median( file_path, column_index ): # mean function or middle: High + lo
                 except ValueError:
                     pass
         return statistics.median(values)
-# mode function or most common
+"""
 
-# Standarad Deviation (SD)
-def standard_deviation(filename, col_name):
-  data = pd.read_csv(filename)
-  arr = data[col_name].tolist()
-  ave = average(filename, col_name)
-  pop_size = len(arr)
-  summation = 0
-  i = 0
-  while i < pop_size:
-    value = arr[i]
-    summation += (value - ave)**2
-    i += 1
-  radicand = summation/pop_size
-  sd = radicand**(1/2)
-  return sd
-
-# Variance function 
-def variance(filename, col_name):
-  num = standard_deviation(filename, col_name)
-  variance = num ** 2
-  return variance
-
-# Min function
-# Max function 
 
 # Main Menu++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -197,6 +243,11 @@ while True:
                 element_count = count_elements(file_path, column_index)
                 end_time = time.time() # "Stats printed successfully! time to process is {load_time:.3f} sec."
                 load_time = end_time - start_time # 
+                
+                # array of column names
+                cols = data_frame.columns
+                col_name = cols[column_index]
+                
                 print([formatted_time], selected_column)
                 print("Column", selected_column, "stats: " )
                 print("=========")
