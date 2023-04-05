@@ -61,21 +61,6 @@ def average(filename, col_name):
   ave = summation/count
   return ave
 
-# median function or most common 
-def median( file_path, column_index ): # mean function or middle: High + low / 2 = middle 
-    with open(file_path, 'r') as file:
-        reader = csv.reader(file)
-        #values = [float(row[column_index]) for row in reader]
-        next(reader)
-        values = []
-        for row in reader:
-            for item in row:
-                #if item:
-                try:
-                    values.append(float(item))
-                except ValueError:
-                    pass
-        return statistics.median(values)
 # mode function or most common
 
 # Variance function 
@@ -99,6 +84,26 @@ def standard_deviation(filename, col_name):
   sd = radicand**(1/2)
   return sd
 
+# Function to find the partition position
+def partition(array, low, high):
+    pivot = array[high]
+    i = low - 1
+    # compare each element with pivot
+    for j in range(low, high):
+        if array[j] <= pivot:
+            i = i + 1
+            # Swapping element at i with element at j
+            (array[i], array[j]) = (array[j], array[i])
+    # Swap the pivot element with the greater element specified by i
+    (array[i + 1], array[high]) = (array[high], array[i + 1])
+    return i + 1
+
+def quicksort(array, low, high):
+    if low < high:
+        pi = partition(array, low, high)
+        quicksort(array, low, pi - 1)
+        quicksort(array, pi + 1, high)
+
 # Min function
 def minimum(filename, col_name):
   data = pd.read_csv(filename)
@@ -116,6 +121,32 @@ def maximum(filename, col_name):
   quicksort(arr, 0, max)
   maximum = arr[max]
   return maximum
+
+def median(file_path, column_index):  
+  # mean function or middle: High + low / 2 = middle
+  low = minimum(file_path, column_index)
+  high = maximum(file_path, column_index)
+  median = (high + low) / 2
+  return median
+
+"""
+# median function or most common 
+def median( file_path, column_index ): # mean function or middle: High + low / 2 = middle 
+    with open(file_path, 'r') as file:
+        reader = csv.reader(file)
+        #values = [float(row[column_index]) for row in reader]
+        next(reader)
+        values = []
+        for row in reader:
+            for item in row:
+                #if item:
+                try:
+                    values.append(float(item))
+                except ValueError:
+                    pass
+        return statistics.median(values)
+"""
+
 
 # Main Menu++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
