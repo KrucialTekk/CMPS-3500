@@ -27,7 +27,7 @@ current_time = datetime.datetime.now()# [current time] 'YYYY-MM-DD HH:MM:SS.ssss
 formatted_time = current_time.strftime('%H:%M:%S') # [current time] HH:MM:SS
 selectedfile = 'Crime_Data_from_2017_to_2019.csv'# This variable is used to hold the correct file name. Set to the first csv file by default, but can be changed to the other csv files in main menu option 1
 
-# Function Code Here ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Function Code Here ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 def testFunc(num1, num2):
     sum = num1 + num2
