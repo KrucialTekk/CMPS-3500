@@ -75,9 +75,11 @@ while True:
             if(select_file == "3"):
                 print("Code to load file [3] not implemented yet\n")
                 selectedfile = 'Test.csv'#use this to read the correct file whenever it is needed
-            with open(selectedfile, 'r') as file: #open and close file
+               
                 calltest = testFunc(3,6)
                 print(calltest)
+                with open(selectedfile, 'r') as file: #open and close file
+                    print(calltest)
 
         elif (select == "2"):
             print("Exploring Data: \n******************")
