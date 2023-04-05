@@ -62,7 +62,7 @@ def average(filename, col_name):
   return ave
 
 # median function or most common 
-def median( file_path, column_index ): # mean function or middle: High + low / 2 = middle 
+def find_median( file_path, column_index ): # mean function or middle: High + low / 2 = middle 
     with open(file_path, 'r') as file:
         reader = csv.reader(file)
         #values = [float(row[column_index]) for row in reader]
@@ -204,8 +204,8 @@ while True:
                 print("Unqiue: ")
                 print("Mean: ")
 
-                #Median = median(file_path, column_index)
-                #print("Median: ", Median )
+                #median = find_median(file_path, column_index)
+                #print("Median: ", median )
                 print("Mode: ")
 
                 print("Standard Deviation: ")
