@@ -130,25 +130,6 @@ def median(file_path, col_name):
   median = (high + low) / 2
   return median
 
-"""
-# median function or most common 
-def find_median( file_path, column_index ): # mean function or middle: High + low / 2 = middle 
-    with open(file_path, 'r') as file:
-        reader = csv.reader(file)
-        #values = [float(row[column_index]) for row in reader]
-        next(reader)
-        values = []
-        for row in reader:
-            for item in row:
-                #if item:
-                try:
-                    values.append(float(item))
-                except ValueError:
-                    pass
-        return statistics.median(values)
-"""
-
-
 # Main Menu++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 print("Main Menu:\n*********")
