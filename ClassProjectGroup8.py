@@ -10,11 +10,13 @@
 import pandas as pd #library to search, sort, parse the csv file
 import datetime
 import numpy 
-import sys #error stuff
-import traceback #error stuff
-import logging #error stuff
+import sys
+import traceback
+import logging
 import csv #read the csv file(s)
 import time #fine the load time or time to load 
+
+
 
 selectedfile = 'Crime_Data_from_2017_to_2019.csv'#This variable is used to hold the correct file name. Set to the first csv file by default, but can be changed to the other csv files in main menu option 1
 
@@ -37,9 +39,6 @@ while select.isnumeric() != 1:#Error check is input is not a number
 
 while True:
     try:
-        data_frame = pd.read_csv('Crime_Data_from_2017_to_2019.csv')#read the csv (move these from local to global)
-        current_time = datetime.datetime.now()#[current time] 'YYYY-MM-DD HH:MM:SS.ssssss'
-        formatted_time = current_time.strftime('%H:%M:%S') #[current time] HH:MM:SS
         if (select == "1"):
         #data_frame = pd.read_csv('Crime_Data_from_2017_to_2019.csv')#read the csv
         #current_time = datetime.datetime.now()#[current time] 'YYYY-MM-DD HH:MM:SS.ssssss'
@@ -73,7 +72,7 @@ while True:
             if(select_file == "3"):
                 print("Code to load file [3] not implemented yet\n")
                 selectedfile = 'Test.csv'#use this to read the correct file whenever it is needed
-               
+
                 calltest = testFunc(3,6)
                 print(calltest)
                 with open(selectedfile, 'r') as file: #open and close file
@@ -164,8 +163,8 @@ while True:
             print(data_frame.head(5))#this prints 5 lines of data_frame
         elif (select == "5"):
             exit(0)
+        #else :
         print("\n-Input another valid command-")
         select = input("(1) Load Data\n(2) Exploring Data\n(3) Data Analysis\n(4) Print Data Set\n(5) Quit\n")
     except Exception as err:
-        logging.error(traceback.format_exc())
-        print("I GOT AN ERROR :( ")
+        print(f"{type(err)}: {err}")
