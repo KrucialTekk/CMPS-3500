@@ -53,6 +53,19 @@ def count_elements(file_path, column_index ):
     return element_count
 
 # unqiue 
+def count_unique_elements(file_path, column_index):
+    unique_elements = set()
+    with open(file_path, 'r') as file:
+        reader = csv.reader(file)
+        next(reader)  # Skip header
+        for row in reader:
+            if len(row) > column_index:
+                unique_elements.add(row[column_index])
+    return len(unique_elements)
+
+
+
+
 # mean
 def average(filename, col_name):
   arr = create_array(filename,col_name)
@@ -246,11 +259,14 @@ while True:
                 cols = data_frame.columns
                 col_name = cols[column_index]
                 
+                #variable that holds the unique elements of the chosen column
+                unique_count = count_unique_elements(file_path, column_index)
+                
                 print([formatted_time], selected_column)
                 print("Column", selected_column, "stats: " )
                 print("=========")
                 print("Count: ",element_count)
-                print("Unqiue: ")
+                print("Unqiue: ", unique_count)
                 print("Mean: ")
 
                 #median = find_median(file_path, column_index)
