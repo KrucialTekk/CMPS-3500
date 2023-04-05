@@ -16,8 +16,6 @@ import logging
 import csv #read the csv file(s)
 import time #fine the load time or time to load 
 
-
-
 selectedfile = 'Crime_Data_from_2017_to_2019.csv'#This variable is used to hold the correct file name. Set to the first csv file by default, but can be changed to the other csv files in main menu option 1
 
 # Function Code Here ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
