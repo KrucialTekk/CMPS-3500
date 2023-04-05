@@ -47,7 +47,18 @@ def count_elements(file_path, column_index ):
     return element_count
 
 # unqiue 
-# mean 
+# mean
+def average(filename, col_name):
+  data = pd.read_csv(filename)
+  arr = data[col_name].tolist()
+  summation = 0
+  count = len(arr)
+  i = 0
+  while i < count:
+    summation += arr[i]
+    i += 1
+  ave = summation/count
+  return ave
 
 # mode function or most common 
 # mode function or most common
@@ -56,7 +67,7 @@ def count_elements(file_path, column_index ):
 def standard_deviation(filename, col_name):
   data = pd.read_csv(filename)
   arr = data[col_name].tolist()
-  ave = average(arr)
+  ave = average(filename, col_name)
   pop_size = len(arr)
   summation = 0
   i = 0
