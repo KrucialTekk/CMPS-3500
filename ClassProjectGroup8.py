@@ -15,7 +15,16 @@ import traceback
 import logging
 import csv #read the csv file(s)
 import time #fine the load time or time to load 
+try:
 
+    data_frame = pd.read_csv('Crime_Data_from_2017_to_2019.csv')#read the csv (move these from local to global)
+except OSError as e:
+    print("File doesn't exsist: Catching Error")
+    print(f"{type(e)}: {e}")
+    exit(0);
+     
+current_time = datetime.datetime.now()#[current time] 'YYYY-MM-DD HH:MM:SS.ssssss'
+formatted_time = current_time.strftime('%H:%M:%S') #[current time] HH:MM:SS
 selectedfile = 'Crime_Data_from_2017_to_2019.csv'#This variable is used to hold the correct file name. Set to the first csv file by default, but can be changed to the other csv files in main menu option 1
 
 # Function Code Here ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -38,9 +47,9 @@ while select.isnumeric() != 1:#Error check is input is not a number
 while True:
     try:
         if (select == "1"):
-        #data_frame = pd.read_csv('Crime_Data_from_2017_to_2019.csv')#read the csv
-        #current_time = datetime.datetime.now()#[current time] 'YYYY-MM-DD HH:MM:SS.ssssss'
-        #formatted_time = current_time.strftime('%H:%M:%S') #[current time] HH:MM:SS
+           #data_frame = pd.read_csv('Crime_Data_from_2017_to_2019.csv')#read the csv
+          #current_time = datetime.datetime.now()#[current time] 'YYYY-MM-DD HH:MM:SS.ssssss'
+         #formatted_time = current_time.strftime('%H:%M:%S') #[current time] HH:MM:SS
             if data_frame.empty != True:
                 print("Load data set:\n**************")
                 print(formatted_time,"Select the numer of the file to load from the list below:")
@@ -129,13 +138,13 @@ while True:
                 selectElement = int(input(""))
             
                 data_frame.loc[selectElement]
-                # help me
-                # rows = []
-                # with open('Crime_Data_from_2017_to_2019.csv', 'r') as file_in, open('new_Crime_Data_from_2017_to_2019.csv', 'w', newline='' ) as file_out:
-                # reader = csv.reader(file_in) #read to csv file 
-                # writer = csv.writer(file_out) #write to csv file 
+               #help me
+                #rows = []
+                #with open('Crime_Data_from_2017_to_2019.csv', 'r') as file_in, open('new_Crime_Data_from_2017_to_2019.csv', 'w', newline='' ) as file_out:
+                #   reader = csv.reader(file_in) #read to csv file 
+                #  writer = csv.writer(file_out) #write to csv file 
                 # for row in reader:
-                    # Ret = row[selectCol]
+                    #    Ret = row[selectCol]
                         #if row == selectElement:
                         #   myRet = selectElement
                         #  print(formatted_time, row)
@@ -143,19 +152,19 @@ while True:
                     #     myRet = 0
                     #   print("Element not found in Column: ", selectCol)
 
-            #    if myRet == 0:
+           #    if myRet == 0:
             #    print("Element not found in Column: ", selectCol)
-            # else :
+           # else :
                 print(formatted_time)
 
             if (select_2 == "25"):
                 print('(25)Back to Main Menu: \n******************') # Make it when the user selecet 25, it goes back to main
-            #    select = input("(1) Load Data\n(2) Exploring Data\n(3) Data Analysis\n(4) Print Data Set\n(5) Quit\n")
+             #   select = input("(1) Load Data\n(2) Exploring Data\n(3) Data Analysis\n(4) Print Data Set\n(5) Quit\n")
 
-        # example of grouping the csv file for something specific
-        # list2 = ["LAT", "LON"]
-        # location = data_frame.groupby(["LOCATION"], as_index=False)[list2].count()
-        # print(location.head(10))
+        #example of grouping the csv file for something specific
+        #list2 = ["LAT", "LON"]
+        #location = data_frame.groupby(["LOCATION"], as_index=False)[list2].count()
+        #print(location.head(10))
     #elif (select == "3"): #Data analysis called here
         elif (select == "4"):
             print(data_frame.head(5))#this prints 5 lines of data_frame
