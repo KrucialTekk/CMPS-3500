@@ -139,7 +139,6 @@ while True:
             if (select_2 == "23"):
                 print('(23) Describe Columns: \n******************')
                 print(formatted_time,'Select column number to Describe:\n') 
-                print('Select a column to Drop from the list:')
                 start_time = time.time()
                 file_path = 'Crime_Data_from_2017_to_2019.csv'
                 with open(file_path, 'r') as file:
