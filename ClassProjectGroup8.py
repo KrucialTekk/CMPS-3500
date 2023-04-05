@@ -46,6 +46,18 @@ def count_elements(file_path, column_index ):
                 element_count += 1
     return element_count
 
+# unqiue 
+# mean 
+
+# mode function or most common 
+# mode function or most common
+
+# Standarad Deviation (SD)
+# Variance function 
+
+# Min function
+# Max function 
+
 # Main Menu++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 print("Main Menu:\n*********")
