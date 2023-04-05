@@ -78,8 +78,8 @@ def median( file_path, column_index ): # mean function or middle: High + low / 2
         return statistics.median(values)
 # mode function or most common
 
-# Standarad Deviation (SD)
-def standard_deviation(filename, col_name):
+# Variance function 
+def variance(filename, col_name):
   data = pd.read_csv(filename)
   arr = data[col_name].tolist()
   ave = average(filename, col_name)
@@ -90,15 +90,14 @@ def standard_deviation(filename, col_name):
     value = arr[i]
     summation += (value - ave)**2
     i += 1
-  radicand = summation/pop_size
+  variance = (summation/pop_size)
+  return variance
+
+# Standarad Deviation (SD)
+def standard_deviation(filename, col_name):
+  radicand = variance(filename, col_name)
   sd = radicand**(1/2)
   return sd
-
-# Variance function 
-def variance(filename, col_name):
-  num = standard_deviation(filename, col_name)
-  variance = num ** 2
-  return variance
 
 # Min function
 def minimum(filename, col_name):
