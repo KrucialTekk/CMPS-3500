@@ -138,6 +138,7 @@ while True:
                 # Call the count_elements_in_selected_column function to count the elements in the selected column
                 column_index = selected_column - 1  # Adjust index since user input is 1-based and Python list indexing is 0-based
                 element_count = count_elements(file_path, column_index)
+                print([formatted_time], selected_column)
                 print("Column", selected_column, "stats: " )
                 print("=========")
                 print("Count: ",element_count)
