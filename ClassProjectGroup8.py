@@ -15,6 +15,7 @@ import traceback
 import logging
 import csv # read the csv file(s)
 import time # fine the load time or time to load 
+import statistics # statistics of numeric data: mean, mode
 
 try:
     data_frame = pd.read_csv('Crime_Data_from_2017_to_2019.csv')# read the csv (move these from local to global)
@@ -60,7 +61,13 @@ def average(filename, col_name):
   ave = summation/count
   return ave
 
-# mode function or most common 
+# median function or most common 
+def median( file_path, column_index ): # mean function or middle: High + low / 2 = middle 
+    with open(file_path, 'r') as file:
+        reader = csv.reader(file)
+        
+        values = [float(row[column_index]) for row in reader]
+        return statistics.median(values)
 # mode function or most common
 
 # Standarad Deviation (SD)
@@ -189,7 +196,8 @@ while True:
                 print("Unqiue: ")
                 print("Mean: ")
 
-                print("Median: ")
+                #Median = median(file_path, column_index)
+                #print("Median: ", Median )
                 print("Mode: ")
 
                 print("Standard Deviation: ")
