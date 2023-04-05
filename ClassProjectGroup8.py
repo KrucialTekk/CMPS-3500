@@ -135,6 +135,7 @@ while True:
                     for i, column in enumerate(columns):
                         print(f"[{1+i}] <{column} >")
                 selected_column = int(input())
+                # Call the count_elements_in_selected_column function to count the elements in the selected column
                 column_index = selected_column - 1  # Adjust index since user input is 1-based and Python list indexing is 0-based
                 element_count = count_elements(file_path, column_index)
                 print("Column", selected_column, "stats: " )
@@ -151,13 +152,6 @@ while True:
 
                 print("Minimum: ")
                 print("Maximum: ")
-
-                # Call the count_elements_in_selected_column function to count the elements in the selected column
-                column_index = selected_column - 1  # Adjust index since user input is 1-based and Python list indexing is 0-based
-                element_count = count_elements(file_path, column_index)
-                print("Column", selected_column, "stats: " )
-                print("=========")
-                print("Count: ",element_count)
 
             if (select_2 == "24"):
                 print('(24) Search Element in Column: \n******************')
