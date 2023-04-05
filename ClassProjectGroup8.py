@@ -37,6 +37,11 @@ def testFunc(num1, num2):
 def counter(): #this doesnt do anything yet
     return 0
 
+def create_array(filename,col_name):
+  data = pd.read_csv(filename)
+  arr = data[col_name].tolist()
+  return arr
+
 # function for counting elements based on user inputted column
 def count_elements(file_path, column_index ):
     element_count = 0
@@ -50,8 +55,7 @@ def count_elements(file_path, column_index ):
 # unqiue 
 # mean
 def average(filename, col_name):
-  data = pd.read_csv(filename)
-  arr = data[col_name].tolist()
+  arr = create_array(filename,col_name)
   summation = 0
   count = len(arr)
   i = 0
@@ -65,8 +69,7 @@ def average(filename, col_name):
 
 # Variance function 
 def variance(filename, col_name):
-  data = pd.read_csv(filename)
-  arr = data[col_name].tolist()
+  arr = create_array(filename,col_name)
   ave = average(filename, col_name)
   pop_size = len(arr)
   summation = 0
@@ -106,8 +109,7 @@ def quicksort(array, low, high):
 
 # Min function
 def minimum(filename, col_name):
-  data = pd.read_csv(filename)
-  arr = data[col_name].tolist()
+  arr = create_array(filename,col_name)
   max = len(arr) - 1
   quicksort(arr, 0, max)
   min = arr[0]
@@ -115,17 +117,16 @@ def minimum(filename, col_name):
 
 # Max function 
 def maximum(filename, col_name):
-  data = pd.read_csv(filename)
-  arr = data[col_name].tolist()
+  arr = create_array(filename,col_name)
   max = len(arr) - 1
   quicksort(arr, 0, max)
   maximum = arr[max]
   return maximum
 
-def median(file_path, column_index):  
+def median(file_path, col_name):  
   # mean function or middle: High + low / 2 = middle
-  low = minimum(file_path, column_index)
-  high = maximum(file_path, column_index)
+  low = minimum(file_path, col_name)
+  high = maximum(file_path, col_name)
   median = (high + low) / 2
   return median
 
