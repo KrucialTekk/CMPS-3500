@@ -16,10 +16,7 @@ import logging #error stuff
 import csv #read the csv file(s)
 import time #fine the load time or time to load 
 
-data_frame = pd.read_csv('Crime_Data_from_2017_to_2019.csv')#read the csv (move these from local to global)
-#data_frame = pd.DataFrame('Crime_Data_from_2017_to_2019.csv')#read the csv (move these from local to global)
-current_time = datetime.datetime.now()#[current time] 'YYYY-MM-DD HH:MM:SS.ssssss'
-formatted_time = current_time.strftime('%H:%M:%S') #[current time] HH:MM:SS
+
 
 selectedfile = 'Crime_Data_from_2017_to_2019.csv'#This variable is used to hold the correct file name. Set to the first csv file by default, but can be changed to the other csv files in main menu option 1
 
@@ -42,6 +39,9 @@ while select.isnumeric() != 1:#Error check is input is not a number
 
 while True:
     try:
+        data_frame = pd.read_csv('Crime_Data_from_2017_to_2019.csv')#read the csv (move these from local to global)
+        current_time = datetime.datetime.now()#[current time] 'YYYY-MM-DD HH:MM:SS.ssssss'
+        formatted_time = current_time.strftime('%H:%M:%S') #[current time] HH:MM:SS
         if (select == "1"):
            #data_frame = pd.read_csv('Crime_Data_from_2017_to_2019.csv')#read the csv
           #current_time = datetime.datetime.now()#[current time] 'YYYY-MM-DD HH:MM:SS.ssssss'
