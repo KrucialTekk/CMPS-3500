@@ -36,8 +36,7 @@ def testFunc(num1, num2):
 def counter(): #this doesnt do anything yet
     return 0
 
-
-#function for counting elements based on user inputted column
+# function for counting elements based on user inputted column
 def count_elements(file_path, column_index ):
     element_count = 0
     with open(file_path, 'r') as file:
@@ -46,6 +45,7 @@ def count_elements(file_path, column_index ):
             if len(values) > column_index:
                 element_count += 1
     return element_count
+
 # Main Menu++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 print("Main Menu:\n*********")
@@ -141,13 +141,13 @@ while True:
                 print("=========")
                 print("Count: ",element_count)
 
+                # Call the count_elements_in_selected_column function to count the elements in the selected column
+                column_index = selected_column - 1  # Adjust index since user input is 1-based and Python list indexing is 0-based
+                element_count = count_elements(file_path, column_index)
+                print("Column", selected_column, "stats: " )
+                print("=========")
+                print("Count: ",element_count)
 
-    # Call the count_elements_in_selected_column function to count the elements in the selected column
-            column_index = selected_column - 1  # Adjust index since user input is 1-based and Python list indexing is 0-based
-            element_count = count_elements(file_path, column_index)
-            print("Column", selected_column, "stats: " )
-            print("=========")
-            print("Count: ",element_count)
             if (select_2 == "24"):
                 print('(24) Search Element in Column: \n******************')
                 print(formatted_time, 'Select column number to perform a search:') 
@@ -176,7 +176,7 @@ while True:
                             # print(formatted_time, row)
                     # else :
                         # myRet = 0
-                         # print("Element not found in Column: ", selectCol)
+                        # print("Element not found in Column: ", selectCol)
 
                 # if myRet == 0:
                 # print("Element not found in Column: ", selectCol)
