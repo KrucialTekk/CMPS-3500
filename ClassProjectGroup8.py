@@ -123,10 +123,10 @@ def maximum(filename, col_name):
   maximum = arr[max]
   return maximum
 
-def median(file_path, col_name):  
+def find_median(file_path, column_name):  
   # mean function or middle: High + low / 2 = middle
-  low = minimum(file_path, col_name)
-  high = maximum(file_path, col_name)
+  low = minimum(file_path, column_name)
+  high = maximum(file_path, column_name)
   median = (high + low) / 2
   return median
 
