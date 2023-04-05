@@ -197,7 +197,7 @@ while True:
             print(data_frame.head(5)) # this prints 5 lines of data_frame
         elif (select == "5"):
             exit(0)
-        #else :
+        # else :
         print("\n-Input another valid command-")
         select = input("(1) Load Data\n(2) Exploring Data\n(3) Data Analysis\n(4) Print Data Set\n(5) Quit\n")
     except Exception as err:
