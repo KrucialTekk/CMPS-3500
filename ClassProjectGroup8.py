@@ -140,6 +140,7 @@ while True:
                 print('(23) Describe Columns: \n******************')
                 print(formatted_time,'Select column number to Describe:\n') 
                 print('Select a column to Drop from the list:')
+                start_time = time.time()
                 file_path = 'Crime_Data_from_2017_to_2019.csv'
                 with open(file_path, 'r') as file:
                     reader = csv.reader(file)
@@ -150,6 +151,8 @@ while True:
                 # Call the count_elements_in_selected_column function to count the elements in the selected column
                 column_index = selected_column - 1  # Adjust index since user input is 1-based and Python list indexing is 0-based
                 element_count = count_elements(file_path, column_index)
+                end_time = time.time() # "Stats printed successfully! time to process is {load_time:.3f} sec."
+                load_time = end_time - start_time # 
                 print([formatted_time], selected_column)
                 print("Column", selected_column, "stats: " )
                 print("=========")
@@ -165,6 +168,8 @@ while True:
 
                 print("Minimum: ")
                 print("Maximum: ")
+
+                print(f"Stats printed successfully! time to process is {load_time:.3f} sec.")
 
             if (select_2 == "24"):
                 print('(24) Search Element in Column: \n******************')
