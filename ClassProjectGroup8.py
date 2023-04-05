@@ -243,6 +243,11 @@ while True:
                 element_count = count_elements(file_path, column_index)
                 end_time = time.time() # "Stats printed successfully! time to process is {load_time:.3f} sec."
                 load_time = end_time - start_time # 
+                
+                # array of column names
+                cols = data_frame.columns
+                col_name = cols[column_index]
+                
                 print([formatted_time], selected_column)
                 print("Column", selected_column, "stats: " )
                 print("=========")
