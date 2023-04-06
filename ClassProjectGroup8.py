@@ -292,27 +292,24 @@ while True:
                 selectCol = int(input(""))
                 print(formatted_time, "You selected column: ", selectCol)
                 print(formatted_time, "Enter an element to search")  
-                selectElement = int(input(""))
+                selectElement = input("")
+                print(formatted_time, "Searching for: ", selectElement)
+                count = 0
+                found = "empty"
             
-                data_frame.loc[selectElement]
-                # help me
-                # rows = []
-                # with open('Crime_Data_from_2017_to_2019.csv', 'r') as file_in, open('new_Crime_Data_from_2017_to_2019.csv', 'w', newline='' ) as file_out:
-                    # reader = csv.reader(file_in) #read to csv file 
-                    # writer = csv.writer(file_out) #write to csv file 
-                    # for row in reader:
-                        # Ret = row[selectCol]
-                        # if row == selectElement:
-                            # myRet = selectElement
-                            # print(formatted_time, row)
-                    # else :
-                        # myRet = 0
-                        # print("Element not found in Column: ", selectCol)
-
-                # if myRet == 0:
-                # print("Element not found in Column: ", selectCol)
-           # else :
-                print(formatted_time)
+                with open('Crime_Data_from_2017_to_2019.csv') as file: # open and close file and display the columns 
+                    reader = csv.reader(file) # obj from the csv file
+                    columns = next(reader) # get the row
+                    #for i, column in enumerate(columns):
+                    for row in reader:
+                        if(row[selectCol-1]==selectElement):
+                            found = (selectElement)
+                            count = count + 1 
+                if(found != "empty"):
+                    print(formatted_time, "Element found in" , count, "row(s)")
+                else:
+                    print("Element not found: Heading back to Main Menu\n")
+            
 
             if (select_2 == "25"):
                 print('(25)Back to Main Menu: \n******************') # Make it when the user selecet 25, it goes back to main
