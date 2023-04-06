@@ -76,6 +76,17 @@ def average(filename, col_name):
   return ave
 
 # mode function or most common
+def find_mode(file_path, column_index):
+    with open(file_path, 'r') as file:
+        reader = csv.reader(file)
+        value = [ ]
+        for row in reader:
+            value.append(row[column_index])
+        try:
+            mode_value = statistics.mode(value)
+            return mode_value
+        except statistics.StatisticsError:
+            return None
 
 # Variance function 
 def variance(filename, col_name):
@@ -153,8 +164,8 @@ def find_median(file_path, column_name):
                 #except ValueError:
                     #pass
         #return statistics.median(values)
-# median = find_median(file_path, selected_column )
-                #print("Median: ", median )
+        # median = find_median(file_path, selected_column )
+        # print("Median: ", median )
 """
 
 # Main Menu++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -266,10 +277,14 @@ while True:
                 print("Unqiue: ", unique_count)
                 print("Mean: ")
 
-                # key error
+                # key error. display 400 on the old def
                 #median = find_median(file_path, column_index)
                 #print("Median: ", median )
-                print("Mode: ")
+                print("Median: ")
+
+                # displaying 01/01/2017 12:00:00 AM, and not the number value
+                mode = find_mode(file_path, column_index)
+                print("Mode: ", mode)
 
                 print("Standard Deviation: ")
                 print("Variance: ")
