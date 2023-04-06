@@ -296,7 +296,8 @@ while True:
                 print(formatted_time, "Searching for: ", selectElement)
                 count = 0
                 found = "empty"
-            
+                
+                start_time = time.time()
                 with open('Crime_Data_from_2017_to_2019.csv') as file: # open and close file and display the columns 
                     reader = csv.reader(file) # obj from the csv file
                     columns = next(reader) # get the row
@@ -304,9 +305,12 @@ while True:
                     for row in reader:
                         if(row[selectCol-1]==selectElement):
                             found = (selectElement)
-                            count = count + 1 
+                            count = count + 1
+                end_time = time.time()
+                search_time = end_time - start_time
                 if(found != "empty"):
                     print(formatted_time, "Element found in" , count, "row(s)")
+                    print(f"Search was successful! time to process is {search_time:.3f} sec.")
                 else:
                     print("Element not found: Heading back to Main Menu\n")
             
