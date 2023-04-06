@@ -15,7 +15,7 @@ import traceback
 import logging
 import csv # read the csv file(s)
 import time # fine the load time or time to load 
-import statistics # statistics of numeric data: mean, mode
+import statistics # statistics of numeric data
 
 try:
     data_frame = pd.read_csv('Crime_Data_from_2017_to_2019.csv')# read the csv (move these from local to global)
