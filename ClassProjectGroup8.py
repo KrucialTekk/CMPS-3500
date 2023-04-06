@@ -63,9 +63,6 @@ def count_unique_elements(file_path, column_index):
                 unique_elements.add(row[column_index])
     return len(unique_elements)
 
-
-
-
 # mean
 def average(filename, col_name):
   arr = create_array(filename,col_name)
@@ -269,6 +266,7 @@ while True:
                 print("Unqiue: ", unique_count)
                 print("Mean: ")
 
+                # key error
                 #median = find_median(file_path, column_index)
                 #print("Median: ", median )
                 print("Mode: ")
