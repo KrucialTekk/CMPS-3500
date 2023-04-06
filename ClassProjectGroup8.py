@@ -79,14 +79,19 @@ def average(filename, col_name):
 def find_mode(file_path, column_index):
     with open(file_path, 'r') as file:
         reader = csv.reader(file)
-        value = [ ]
+        value_arr = {}
+        max_count = 0
+        mode_value = None
         for row in reader:
-            value.append(row[column_index])
-        try:
-            mode_value = statistics.mode(value)
-            return mode_value
-        except statistics.StatisticsError:
-            return None
+            value = row[column_index]
+            if value not in value_arr:
+                value_arr[value] = 1
+            else:
+                value_arr[value] += 1
+            if value_arr[value] > max_count:
+                max_count = value_arr[value]
+                mode_value = value
+        return mode_value
 
 # Variance function 
 def variance(filename, col_name):
