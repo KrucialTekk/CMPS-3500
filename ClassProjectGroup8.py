@@ -242,8 +242,8 @@ while True:
                 drop_input = int(input("Select the desired column you want to drop: "))
                 drop_column = data_frame.columns[drop_input - 1]
                 data_frame = data_frame.drop(columns=[drop_column]
-                print(formatted_time,f' {[drop_column]}')
-                print(formatted_time,f' Column {[drop_column]} dropped!')
+                print(formatted_time,f' {[drop_input]}')
+                print(formatted_time,f' Column {[drop_input]} dropped!')
 
             if (select_2 == "23"):
                 print('(23) Describe Columns: \n******************')
