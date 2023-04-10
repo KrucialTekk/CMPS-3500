@@ -236,12 +236,12 @@ while True:
             if (select_2 == "22"):
                 print('(22) Drop Columns: \n******************')
                 print('List of Columns:')               
-                for i, column in enumerate(columns):
+                for i, column in enumerate(data_frame.columns):
                     print(f"[{1+i}] <{column} >") # print the index of the columns 
             
                 drop_input = int(input("Select the desired column you want to drop: "))
                 drop_column = data_frame.columns[drop_input - 1]
-                data_frame = data_frame.drop(columns=[drop_column]
+                data_frame = data_frame.drop(columns=[drop_column])
                 print(formatted_time,f' {[drop_input]}')
                 print(formatted_time,f' Column {[drop_input]} dropped!')
 
