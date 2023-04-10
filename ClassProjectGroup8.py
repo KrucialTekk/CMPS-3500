@@ -18,7 +18,7 @@ import time # fine the load time or time to load
 import statistics # statistics of numeric data
 
 try:
-    data_frame = pd.read_csv('Crime_Data_from_2017_to_2019.csv')# read the csv (move these from local to global)
+    data_frame = None
 except OSError as e:
     print("File doesn't exsist: Catching Error")
     print(f"{type(e)}: {e}")
@@ -184,14 +184,15 @@ while select.isnumeric() != 1:# Error check is input is not a number
 while True:
     try:
         if (select == "1"):
-            if data_frame.empty != True:
-                print("Load data set:\n**************")
-                print(formatted_time,"Select the numer of the file to load from the list below:")
+            #if data_frame.empty != True:
+            print("Load data set:\n**************")
+            print(formatted_time,"Select the numer of the file to load from the list below:")
                 # print(" Please select an option:")
-                select_file = input(" Please select a file: \n[1] Crime_Data_from_2017_to_2019.csv\n[2] Crime_Data_from_2020_to_2021.csv\n[3] Test.csv\n")
+            select_file = input(" Please select a file: \n[1] Crime_Data_from_2017_to_2019.csv\n[2] Crime_Data_from_2020_to_2021.csv\n[3] Test.csv\n")
             if(select_file == "1"):
                 print(formatted_time,"You selected: Option 1")
                 selectedfile = 'Crime_Data_from_2017_to_2019.csv'#use this to read the correct file whenever it is needed
+                data_frame = pd.read_csv(selectedfile)
                 start_time = time.time()
                 # with open('Crime_Data_from_2017_to_2019.csv', 'r') as file: #open and close file
                 with open(selectedfile, 'r') as file: # open and close file
@@ -210,9 +211,11 @@ while True:
             if(select_file == "2"):
                 print("Code to load file [2] not implemented yet")
                 selectedfile = 'Crime_Data_from_2020_to_2021.csv'# use this to read the correct file whenever it is needed
+                data_frame = pd.read_csv(selectedfile)
             if(select_file == "3"):
                 print("Code to load file [3] not implemented yet\n")
                 selectedfile = 'Test.csv'# use this to read the correct file whenever it is needed
+                data_frame = pd.read_csv(selectedfile)
 
                 calltest = testFunc(3,6)
                 print(calltest)
@@ -232,22 +235,13 @@ while True:
 
             if (select_2 == "22"):
                 print('(22) Drop Columns: \n******************')
-                print('Select a column number to Drop from the list:')
-                with open('Crime_Data_from_2017_to_2019.csv', 'r') as file: # open and close file and display the columns 
-                    reader = csv.reader(file) # obj from the csv file
-                    columns = next(reader) # get the row
-                    for i, column in enumerate(columns):
-                        print(f"[{1+i}] <{column} >") # print the index of the columns 
+                print('List of Columns:')               
+                for i, column in enumerate(columns):
+                    print(f"[{1+i}] <{column} >") # print the index of the columns 
             
-                drop_column = int(input("Select the desired column you want to drop: "))# drop columns 
-
-                with open('Crime_Data_from_2017_to_2019.csv', 'r') as file_in, open('new_Crime_Data_from_2017_to_2019.csv', 'w', newline='' ) as file_out:
-                    reader = csv.reader(file_in) # read to csv file 
-                    writer = csv.writer(file_out) # write to csv file 
-                    for row in reader:
-                        del row[drop_column]
-                        writer.writerow(row)
-
+                drop_input = int(input("Select the desired column you want to drop: "))
+                drop_column = data_frame.columns[drop_input - 1]
+                data_frame = data_frame.drop(columns=[drop_column]
                 print(formatted_time,f' {[drop_column]}')
                 print(formatted_time,f' Column {[drop_column]} dropped!')
 
@@ -346,7 +340,10 @@ while True:
 
         # elif (select == "3"): # Data analysis called here
         elif (select == "4"):
-            print(data_frame.head(5)) # this prints 5 lines of data_frame
+            try:
+                print(data_frame.head(5)) # this prints 5 lines of data_frame
+            except Exception as er:
+                print(f"{type(er)}: {er}")
         elif (select == "5"):
             exit(0)
         # else :
