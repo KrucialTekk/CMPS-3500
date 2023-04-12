@@ -347,7 +347,7 @@ while True:
         elif (select == "4"):
             try:
                 print("Printing the data_frame. (This takes a long time")
-                print(data_frame.head) # this prints 5 lines of data_frame
+                print(data_frame.head) 
             except Exception as er:
                 print("File has not been loaded.")
         elif (select == "5"):
