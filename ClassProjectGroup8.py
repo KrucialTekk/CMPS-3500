@@ -297,17 +297,20 @@ while True:
                 print('(24) Search Element in Column: \n******************')
                 print(formatted_time, 'Select column number to perform a search:') 
 
-                #with open('Crime_Data_from_2017_to_2019.csv', 'r') as file: # open and close file and display the columns 
-                 #   reader = csv.reader(file) # obj from the csv file
-                  #  columns = next(reader) # get the row
                 for i, column in enumerate(data_frame.columns): # file does not need to be opened again
                     print(f"[{1+i}] <{column} >") # print the index of the columns 
 
                 selectCol = int(input(""))
+                while selectCol < 1 or selectCol > 30:
+                     print("Input out of bounds. Try again.")
+                     for i, column in enumerate(data_frame.columns):
+                         print(f"[{1+i}] <{column} >") # print the index of the columns 
+                     selectCol = int(input(""))
                 print(formatted_time, "You selected column: ", selectCol)
                 print(formatted_time, "Enter an element to search")  
                 selectElement = input("")
-                print(formatted_time, "Searching for: ", selectElement)
+                print(formatted_time, f"You selected {selectElement}. Searching...")
+                #print(formatted_time, "Searching for: ", selectElement)
                 count = 0
                 found = "empty"
                 
