@@ -317,7 +317,7 @@ while True:
                 found = "empty"
                 
                 start_time = time.time()
-                with open('Crime_Data_from_2017_to_2019.csv') as file: # open and close file and display the columns 
+                with open(selectedfile) as file: # open and close file and display the columns 
                     reader = csv.reader(file) # obj from the csv file
                     columns = next(reader) # get the row
                     #for i, column in enumerate(columns):
@@ -333,7 +333,6 @@ while True:
                 else:
                     print("Element not found: Heading back to Main Menu\n")
             
-
             if (select_2 == "25"):
                 print('(25)Back to Main Menu: \n******************') # Make it when the user selecet 25, it goes back to main
                 # select = input("(1) Load Data\n(2) Exploring Data\n(3) Data Analysis\n(4) Print Data Set\n(5) Quit\n")
@@ -345,11 +344,26 @@ while True:
 
         # elif (select == "3"): # Data analysis called here
         elif (select == "4"):
-            try:
-                print("Printing the data_frame. (This takes a long time")
-                print(data_frame.head) 
-            except Exception as er:
-                print("File has not been loaded.")
+            print("Select your option.")
+            input4 = input("[1] Display via input \n[2] Display everything in Dataset \n[3] Back to Main Menu\n")
+            if input4 == "1":
+                displayinput = int(input("How many columns to display?"))   
+                try:
+                    print("Printing the data_frame. (This might take a long time)") 
+                    print(data_frame.head(displayinput)) 
+                except Exception as exc:
+                    print("File has not loaded")
+            elif input4 == "2":
+                try:
+                    print("Printing the data_frame. (This takes a long time)") 
+                    print(data_frame.head) 
+                except Exception as er:
+                    print("File has not loaded. bafoon")
+            elif input4 == "3":
+                print('Back to Main Menu: \n******************') 
+            else :
+                print("That was an invalid input")
+
         elif (select == "5"):
             exit(0)
         # else :
