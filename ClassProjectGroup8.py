@@ -347,7 +347,7 @@ while True:
             print("Select your option.")
             input4 = input("[1] Display via input \n[2] Display everything in Dataset \n[3] Back to Main Menu\n")
             if input4 == "1":
-                displayinput = int(input("How many columns to display?"))   
+                displayinput = int(input("How many columns to display?\n"))   
                 try:
                     print("Printing the data_frame. (This might take a long time)") 
                     print(data_frame.head(displayinput)) 
