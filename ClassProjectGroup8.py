@@ -183,6 +183,8 @@ while select.isnumeric() != 1:# Error check is input is not a number
 
 while True:
     try:
+        pd.set_option('display.max_columns', 30)
+        pd.set_option('display.max_rows', 9999999)
         if (select == "1"):
             #if data_frame.empty != True:
             print("Load data set:\n**************")
@@ -344,9 +346,10 @@ while True:
         # elif (select == "3"): # Data analysis called here
         elif (select == "4"):
             try:
-                print(data_frame.head(5)) # this prints 5 lines of data_frame
+                print("Printing the data_frame. (This takes a long time")
+                print(data_frame.head) # this prints 5 lines of data_frame
             except Exception as er:
-                print(f"{type(er)}: {er}")
+                print("File has not been loaded.")
         elif (select == "5"):
             exit(0)
         # else :
