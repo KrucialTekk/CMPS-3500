@@ -113,41 +113,29 @@ def standard_deviation(filename, col_name):
   sd = radicand**(1/2)
   return sd
 
-# Function to find the partition position
-def partition(array, low, high):
-    pivot = array[high]
-    i = low - 1
-    # compare each element with pivot
-    for j in range(low, high):
-        if array[j] <= pivot:
-            i = i + 1
-            # Swapping element at i with element at j
-            (array[i], array[j]) = (array[j], array[i])
-    # Swap the pivot element with the greater element specified by i
-    (array[i + 1], array[high]) = (array[high], array[i + 1])
-    return i + 1
-
-def quicksort(array, low, high):
-    if low < high:
-        pi = partition(array, low, high)
-        quicksort(array, low, pi - 1)
-        quicksort(array, pi + 1, high)
-
 # Min function
 def minimum(filename, col_name):
-  arr = create_array(filename,col_name)
-  max = len(arr) - 1
-  quicksort(arr, 0, max)
-  min = arr[0]
-  return min
+    arr = create_array(filename, col_name)
+    max = len(arr) - 1
+    min = arr[0]
+    i = 0
+    while i <= max:
+        if arr[i] < min:
+            min = arr[i]
+        i += 1
+    return min
 
 # Max function 
 def maximum(filename, col_name):
-  arr = create_array(filename,col_name)
-  max = len(arr) - 1
-  quicksort(arr, 0, max)
-  maximum = arr[max]
-  return maximum
+    arr = create_array(filename, col_name)
+    end = len(arr) - 1
+    maximum = arr[0]
+    i = 0
+    while i <= end:
+        if arr[i] > maximum:
+            maximum = arr[i]
+        i += 1
+    return maximum
 
 def find_median(file_path, column_name):  
   # mean function or middle: High + low / 2 = middle
@@ -268,30 +256,37 @@ while True:
                 cols = data_frame.columns
                 col_name = cols[column_index]
                 
-                #variable that holds the unique elements of the chosen column
+                col_average = average(file_path, col_name)
+                col_sd = standard_deviation(file_path, col_name)
+                col_variance = variance(file_path, col_name)
+                col_minimum = minimum(file_path, col_name)
+                col_maximum = maximum(file_path, col_name)
+                col_median = find_median(file_path, col_name)
+
+                # variable that holds the unique elements of the chosen column
                 unique_count = count_unique_elements(file_path, column_index)
-                
+
                 print([formatted_time], selected_column)
-                print("Column", selected_column, "stats: " )
+                print("Column", selected_column, "stats: ")
                 print("=========")
-                print("Count: ",element_count)
+                print("Count: ", element_count)
                 print("Unqiue: ", unique_count)
-                print("Mean: ")
+                print("Mean: ", col_average)
 
                 # key error. display 400 on the old def
-                #median = find_median(file_path, column_index)
-                #print("Median: ", median )
-                print("Median: ")
+                # median = find_median(file_path, column_index)
+                # print("Median: ", median )
+                print("Median: ", col_median)
 
                 # displaying 01/01/2017 12:00:00 AM, and not the number value
                 mode = find_mode(file_path, column_index)
                 print("Mode: ", mode)
 
-                print("Standard Deviation: ")
-                print("Variance: ")
+                print("Standard Deviation: ", col_sd)
+                print("Variance: ", col_variance)
 
-                print("Minimum: ")
-                print("Maximum: ")
+                print("Minimum: ", col_minimum)
+                print("Maximum: ", col_maximum)
 
                 print(f"Stats printed successfully! time to process is {load_time:.3f} sec.")
 
