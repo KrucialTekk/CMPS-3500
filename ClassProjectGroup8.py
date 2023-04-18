@@ -181,6 +181,7 @@ while True:
             select_file = input(" Please select a file: \n[1] Crime_Data_from_2017_to_2019.csv\n[2] Crime_Data_from_2020_to_2021.csv\n[3] Test.csv\n")
             if(select_file == "1"):
                 print(formatted_time,"You selected: Option 1")
+                print(formatted_time,"Now Loading...")
                 selectedfile = 'Crime_Data_from_2017_to_2019.csv'#use this to read the correct file whenever it is needed
                 data_frame = pd.read_csv(selectedfile)
                 start_time = time.time()
@@ -199,11 +200,13 @@ while True:
                 print("\nFile loaded successfully!")
                 print(f'Time to load {load_time:.3f} sec.')
             if(select_file == "2"):
-                print("Code to load file [2] not implemented yet")
+                print(formatted_time,"You selected: Option 1")
+                print(formatted_time,"Now Loading...")
                 selectedfile = 'Crime_Data_from_2020_to_2021.csv'# use this to read the correct file whenever it is needed
                 data_frame = pd.read_csv(selectedfile)
             if(select_file == "3"):
-                print("Code to load file [3] not implemented yet\n")
+                print(formatted_time,"You selected: Option 1")
+                print(formatted_time,"Now Loading...")
                 selectedfile = 'Test.csv'# use this to read the correct file whenever it is needed
                 data_frame = pd.read_csv(selectedfile)
 
@@ -214,7 +217,7 @@ while True:
 
         elif (select == "2"):
             print("Exploring Data: \n******************")
-            select_2 = input("(21) List all columns:\n(22) Drop Columns:\n(23) Describe Columns:\n(24) Search Element in Column:\n(25) Back to Main Menu\n")
+            select_2 = input("(21) List all columns\n(22) Drop Columns\n(23) Describe Columns\n(24) Search Element in Column\n(25) Sort in Ascending/Descending Order \n(26) Select Columns to Display\n(27) Back to Main Menu\n")
             if (select_2 == "21"):
                 print('(21) List all columns: \n******************')
                 with open('Crime_Data_from_2017_to_2019.csv', 'r') as file: # open and close file
@@ -238,6 +241,7 @@ while True:
             if (select_2 == "23"):
                 print('(23) Describe Columns: \n******************')
                 print(formatted_time,'Select column number to Describe:\n') 
+                print(formatted_time,'Please wait...\n') 
                 start_time = time.time()
                 file_path = 'Crime_Data_from_2017_to_2019.csv'
                 with open(file_path, 'r') as file:
@@ -281,13 +285,10 @@ while True:
                 # displaying 01/01/2017 12:00:00 AM, and not the number value
                 mode = find_mode(file_path, column_index)
                 print("Mode: ", mode)
-
                 print("Standard Deviation: ", col_sd)
                 print("Variance: ", col_variance)
-
                 print("Minimum: ", col_minimum)
                 print("Maximum: ", col_maximum)
-
                 print(f"Stats printed successfully! time to process is {load_time:.3f} sec.")
 
             if (select_2 == "24"):
@@ -327,9 +328,19 @@ while True:
                     print(f"Search was successful! time to process is {search_time:.3f} sec.")
                 else:
                     print("Element not found: Heading back to Main Menu\n")
-            
             if (select_2 == "25"):
-                print('(25)Back to Main Menu: \n******************') # Make it when the user selecet 25, it goes back to main
+                #sort acending/decending
+                print("not implemented")
+            if (select_2 == "26"):
+                displayinput = int(input("How many columns to display?\n"))   
+                try:
+                    print("Printing your request. (This might take a long time)\n") 
+                    print(data_frame.head(displayinput)) 
+                except Exception as exc:
+                    print("File has not loaded")
+
+            if (select_2 == "27"):
+                print('(27)Back to Main Menu: \n******************') # Make it when the user selecet 25, it goes back to main
                 # select = input("(1) Load Data\n(2) Exploring Data\n(3) Data Analysis\n(4) Print Data Set\n(5) Quit\n")
 
         # example of grouping the csv file for something specific
@@ -339,25 +350,11 @@ while True:
 
         # elif (select == "3"): # Data analysis called here
         elif (select == "4"):
-            print("Select your option.")
-            input4 = input("[1] Display via input \n[2] Display everything in Dataset \n[3] Back to Main Menu\n")
-            if input4 == "1":
-                displayinput = int(input("How many columns to display?\n"))   
-                try:
-                    print("Printing the data_frame. (This might take a long time)") 
-                    print(data_frame.head(displayinput)) 
-                except Exception as exc:
-                    print("File has not loaded")
-            elif input4 == "2":
-                try:
-                    print("Printing the data_frame. (This takes a long time)") 
-                    print(data_frame.head) 
-                except Exception as er:
-                    print("File has not loaded. bafoon")
-            elif input4 == "3":
-                print('Back to Main Menu: \n******************') 
-            else :
-                print("That was an invalid input")
+            try:
+                print("Printing the data_frame. (This takes a long time)") 
+                print(data_frame.head) 
+            except Exception as er:
+                print("File has not loaded.")
 
         elif (select == "5"):
             exit(0)
