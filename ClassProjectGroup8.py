@@ -330,7 +330,9 @@ while True:
         # location = data_frame.groupby(["LOCATION"], as_index=False)[list2].count()
         # print(location.head(10))
 
-        # elif (select == "3"): # Data analysis called here
+        elif (select == "3"): # Data analysis called here
+             print('Data Analysis: \n******************')
+             
         elif (select == "4"):
             try:
                 print("Printing the data_frame. (This takes a long time)") 
