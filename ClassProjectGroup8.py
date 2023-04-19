@@ -332,7 +332,10 @@ while True:
 
         elif (select == "3"): # Data analysis called here
              print('Data Analysis: \n******************')
-             
+             print(formatted_time,f'Show the total unique count of crimes per year sorted in descending order.')
+
+             print(formatted_time,f'List the top 5 more dangerous areas for older man (age from 65 and more) in december of 2018 in West LA.')
+
         elif (select == "4"):
             try:
                 print("Printing the data_frame. (This takes a long time)") 
