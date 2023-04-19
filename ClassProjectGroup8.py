@@ -260,7 +260,6 @@ while True:
                 print("Unqiue: ", unique_count)
                 print("Mean: ", col_average)
 
-                # key error. display 400 on the old def
                 # median = find_median(file_path, column_index)
                 # print("Median: ", median )
                 print("Median: ", col_median)
