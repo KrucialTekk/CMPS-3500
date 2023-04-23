@@ -43,12 +43,12 @@ def create_array(filename,col_name):
   return arr
 
 # function for counting elements based on user inputted column
-def count_elements(file_path, column_index ):
+def count_elements(file_path, column_index):
     element_count = 0
     with open(file_path, 'r') as file:
         for line in file:
             values = line.strip().split(',')
-            if len(values) > column_index:
+            if len(values) > column_index and values[column_index].strip() != '':
                 element_count += 1
     return element_count
 
