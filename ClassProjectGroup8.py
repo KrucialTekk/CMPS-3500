@@ -184,6 +184,14 @@ def find_median(file_path, column_name):
     median = (high + low) / 2
     return median
 
+def loadingIndicator():
+    cnt = 0
+    while cnt < 4:
+        loadwait = "Now Loading" + "." * cnt
+        cnt = cnt + 1;
+        print(formatted_time, loadwait, end="\r")
+        time.sleep(0.55)
+    return 0
 # Main Menu++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
@@ -209,39 +217,40 @@ while True:
                 " Please select a file: \n[1] Crime_Data_from_2017_to_2019.csv\n[2] Crime_Data_from_2020_to_2021.csv\n[3] Test.csv\n")
             if (select_file == "1"):
                 print(formatted_time, "You selected: Option 1")
-                print(formatted_time, "Now Loading...")
+                loadingIndicator()
                 # use this to read the correct file whenever it is needed
                 selectedfile = 'Crime_Data_from_2017_to_2019.csv'
-                data_frame = pd.read_csv(selectedfile)
                 start_time = time.time()
-                # with open('Crime_Data_from_2017_to_2019.csv', 'r') as file: #open and close file
-                with open(selectedfile, 'r') as file:  # open and close file
-                    reader = csv.reader(file)  # obj from the csv file
-                    header = next(reader)  # get the row
-                    col = len(header)  # count the number of colums in the row
-                    row = sum(1 for row in reader)  # add the number of rows
-                    for row in reader:
-                        pass
+                data_frame = pd.read_csv(selectedfile)
                 end_time = time.time()
                 load_time = end_time - start_time
-                print(formatted_time, f'Total columns read: {col}')
-                print(formatted_time, f'Total rows read: {row}')
+                print(formatted_time,'Total columns read: {}'.format(len(data_frame.columns)))
+                print(formatted_time,'Total rows read: {}'.format(len(data_frame.index)))
                 print("\nFile loaded successfully!")
                 print(f'Time to load {load_time:.3f} sec.')
             if (select_file == "2"):
                 print(formatted_time, "You selected: Option 1")
-                print(formatted_time, "Now Loading...")
+                loadingIndicator()
                 # use this to read the correct file whenever it is needed
                 selectedfile = 'Crime_Data_from_2020_to_2021.csv'
+                start_time = time.time()
                 data_frame = pd.read_csv(selectedfile)
+                end_time = time.time()
+                print(formatted_time,'Total columns read: {}'.format(len(data_frame.columns)))
+                print(formatted_time,'Total rows read: {}'.format(len(data_frame.index)))
+                print("\nFile loaded successfully!")
+                print(f'Time to load {load_time:.3f} sec.')
             if (select_file == "3"):
                 print(formatted_time, "You selected: Option 1")
-                print(formatted_time, "Now Loading...")
+                loadingIndicator()
                 selectedfile = 'Test.csv'  # use this to read the correct file whenever it is needed
+                start_time = time.time()
                 data_frame = pd.read_csv(selectedfile)
-
-                calltest = testFunc(3, 6)
-                print(calltest)
+                end_time = time.time()
+                print(formatted_time,'Total columns read: {}'.format(len(data_frame.columns)))
+                print(formatted_time,'Total rows read: {}'.format(len(data_frame.index)))
+                print("\nFile loaded successfully!")
+                print(f'Time to load {load_time:.3f} sec.')
                 with open(selectedfile, 'r') as file:  # open and close file
                     print(calltest)
 
