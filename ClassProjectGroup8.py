@@ -24,9 +24,6 @@ except OSError as e:
     print(f"{type(e)}: {e}")
     exit(0)
 
-print('The recursion limit currently is ', sys.getrecursionlimit())
-
-
 # [current time] 'YYYY-MM-DD HH:MM:SS.ssssss'
 current_time = datetime.datetime.now()
 formatted_time = current_time.strftime('%H:%M:%S')  # [current time] HH:MM:SS
@@ -105,25 +102,27 @@ def average(filename, col_name):
 # mode function or most common
 
 
-def find_mode(file_path, column_index):
-    with open(file_path, 'r') as file:
-        reader = csv.reader(file)
-        value_arr = {}
-        max_count = 0
-        mode_value = None
-        for row in reader:
-            value = row[column_index]
-            if value not in value_arr:
-                value_arr[value] = 1
-            else:
-                value_arr[value] += 1
-            if value_arr[value] > max_count:
-                max_count = value_arr[value]
-                mode_value = value
-        return mode_value
-
+def find_mode(filename, col_name):
+    arr = create_array(filename, col_name)
+    arr = drop_zero(arr)
+    unique_num_list = list(set(arr))
+    dictionary = {}
+    for i in unique_num_list:
+        get_count = arr.count(i)
+        dictionary[i] = get_count
+    max_repeat = 0
+    for i in unique_num_list:
+        get_value = dictionary[i]
+        if get_value > max_repeat:
+            max_repeat = get_value
+    result = ''
+    for i in unique_num_list:
+        if dictionary[i] == max_repeat:
+            result = result+str(i)+" "
+    return result
 
 # Variance function
+
 
 def variance(filename, col_name):
     arr = create_array(filename, col_name)
@@ -318,7 +317,7 @@ while True:
                 print("Median: ", col_median)
 
                 # displaying 01/01/2017 12:00:00 AM, and not the number value
-                mode = find_mode(file_path, column_index)
+                mode = find_mode(file_path, col_name)
                 print("Mode: ", mode)
                 print("Standard Deviation: ", col_sd)
                 print("Variance: ", col_variance)
