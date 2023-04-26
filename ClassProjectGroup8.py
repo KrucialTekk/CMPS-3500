@@ -193,7 +193,7 @@ def loadingIndicator():
         loadwait = "Now Loading" + "." * cnt
         cnt = cnt + 1;
         print(formatted_time, loadwait, end="\r")
-        time.sleep(0.425)
+        time.sleep(0.40)
     return 0
 # Main Menu++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -341,14 +341,17 @@ while True:
             if (select_2 == "24"):
                 print('(24) Search Element in Column: \n******************')
                 print(formatted_time, 'Select column number to perform a search:')
+                colnum = 0
+                cols = []
 
                 # file does not need to be opened again
                 for i, column in enumerate(data_frame.columns):
                     # print the index of the columns
                     print(f"[{1+i}] <{column} >")
+                    colnum = colnum +1;
 
                 selectCol = int(input(""))
-                while selectCol < 1 or selectCol > 30:
+                while selectCol < 1 or selectCol > colnum:
                     print("Input out of bounds. Try again.")
                     for i, column in enumerate(data_frame.columns):
                         # print the index of the columns
@@ -359,19 +362,18 @@ while True:
                 selectElement = input("")
                 print(formatted_time,
                       f"You selected {selectElement}. Searching...")
-                # print(formatted_time, "Searching for: ", selectElement)
                 count = 0
                 found = "empty"
-
                 start_time = time.time()
-                with open(selectedfile) as file:  # open and close file and display the columns
-                    reader = csv.reader(file)  # obj from the csv file
-                    columns = next(reader)  # get the row
-                    # for i, column in enumerate(columns):
-                    for row in reader:
-                        if (row[selectCol-1] == selectElement):
-                            found = (selectElement)
-                            count = count + 1
+                cols = data_frame.iloc[:, selectCol-1].values
+                cols = cols.astype(str)
+                #print(cols)
+                for i in range(len(cols)):
+                    if cols[i] == selectElement:
+                        found = (selectElement)
+                        count = count + 1
+              
+
                 end_time = time.time()
                 search_time = end_time - start_time
                 if (found != "empty"):
