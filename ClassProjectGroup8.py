@@ -376,7 +376,7 @@ while True:
                     print(
                         f"Search was successful! time to process is {search_time:.3f} sec.")
                 else:
-                    print("Element not found: Heading back to Main Menu\n"
+                    print("Element not found: Heading back to Main Menu\n")
                 
             if (select_2 == "25"):
                 # sort acending/decending
