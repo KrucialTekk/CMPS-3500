@@ -71,7 +71,7 @@ def count_elements(file_path, column_index):
                 element_count += 1
     return element_count
 
-# unqiue
+# unqiue count, does not counnt null, zeros or empty values.
 
 
 def count_unique_elements(file_path, column_index):
@@ -81,8 +81,11 @@ def count_unique_elements(file_path, column_index):
         next(reader)  # Skip header
         for row in reader:
             if len(row) > column_index:
-                unique_elements.add(row[column_index])
+                value = row[column_index].strip()
+                if value and value != "0" and value.lower() != "null":
+                    unique_elements.add(value)
     return len(unique_elements)
+
 
 
 # mean
