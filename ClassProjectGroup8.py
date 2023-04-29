@@ -42,8 +42,7 @@ def counter():  # this doesnt do anything yet
     return 0
 
 
-def create_array(filename, col_name):
-    data = pd.read_csv(filename)
+def create_array(data, col_name):
     arr = data[col_name].tolist()
     return arr
 
@@ -62,36 +61,31 @@ def drop_zero(arr):
 
 # function for counting elements based on user inputted column
 
-def count_elements(file_path, column_index):
-    element_count = 0
-    with open(file_path, 'r') as file:
-        for line in file:
-            values = line.strip().split(',')
-            if len(values) > column_index and values[column_index].strip() != '':
-                element_count += 1
+def count_elements(data_frame, column_name):
+    if data_frame[column_name].dtype == 'object':
+        arr = data_frame[column_name].tolist()
+    else:
+        arr = drop_zero(create_array(data_frame, column_name))
+    element_count = len(arr)
     return element_count
 
-# unqiue count, does not counnt null, zeros or empty values.
+# unqiue
 
 
-def count_unique_elements(file_path, column_index):
-    unique_elements = set()
-    with open(file_path, 'r') as file:
-        reader = csv.reader(file)
-        next(reader)  # Skip header
-        for row in reader:
-            if len(row) > column_index:
-                value = row[column_index].strip()
-                if value and value != "0" and value.lower() != "null":
-                    unique_elements.add(value)
-    return len(unique_elements)
-
-
+def count_unique_elements(data_frame, column_name):
+    if data_frame[column_name].dtype == 'object':
+        arr = data_frame[column_name].tolist()
+    else:
+        arr = drop_zero(create_array(data_frame, column_name))
+    unique_elements = set(arr)
+    unique_count = len(unique_elements)
+    return unique_count
 
 # mean
 
-def average(filename, col_name):
-    arr = create_array(filename, col_name)
+
+def average(data, col_name):
+    arr = create_array(data, col_name)
     arr = drop_zero(arr)
     summation = 0
     count = len(arr)
@@ -105,8 +99,8 @@ def average(filename, col_name):
 # mode function or most common
 
 
-def find_mode(filename, col_name):
-    arr = create_array(filename, col_name)
+def find_mode(data, col_name):
+    arr = create_array(data, col_name)
     arr = drop_zero(arr)
     unique_num_list = list(set(arr))
     dictionary = {}
@@ -127,10 +121,10 @@ def find_mode(filename, col_name):
 # Variance function
 
 
-def variance(filename, col_name):
-    arr = create_array(filename, col_name)
+def variance(data, col_name):
+    arr = create_array(data, col_name)
     arr = drop_zero(arr)
-    ave = average(filename, col_name)
+    ave = average(data, col_name)
     pop_size = len(arr)
     summation = 0
     i = 0
@@ -144,16 +138,16 @@ def variance(filename, col_name):
 # Standarad Deviation (SD)
 
 
-def standard_deviation(filename, col_name):
-    radicand = variance(filename, col_name)
+def standard_deviation(data, col_name):
+    radicand = variance(data, col_name)
     sd = radicand**(1/2)
     return sd
 
 # Min function
 
 
-def minimum(filename, col_name):
-    arr = create_array(filename, col_name)
+def minimum(data, col_name):
+    arr = create_array(data, col_name)
     arr = drop_zero(arr)
     max = len(arr) - 1
     min = arr[0]
@@ -167,8 +161,8 @@ def minimum(filename, col_name):
 # Max function
 
 
-def maximum(filename, col_name):
-    arr = create_array(filename, col_name)
+def maximum(data, col_name):
+    arr = create_array(data, col_name)
     arr = drop_zero(arr)
     end = len(arr) - 1
     maximum = arr[0]
@@ -180,20 +174,21 @@ def maximum(filename, col_name):
     return maximum
 
 
-def find_median(file_path, column_name):
+def find_median(data, column_name):
     # mean function or middle: High + low / 2 = middle
-    low = minimum(file_path, column_name)
-    high = maximum(file_path, column_name)
+    low = minimum(data, column_name)
+    high = maximum(data, column_name)
     median = (high + low) / 2
     return median
+
 
 def loadingIndicator():
     cnt = 0
     while cnt < 4:
         loadwait = "Now Loading" + "." * cnt
-        cnt = cnt + 1;
+        cnt = cnt + 1
         print(formatted_time, loadwait, end="\r")
-        time.sleep(0.40)
+        time.sleep(0.55)
     return 0
 
 #(3) Data Analysys
@@ -242,8 +237,10 @@ while True:
                 data_frame = pd.read_csv(selectedfile)
                 end_time = time.time()
                 load_time = end_time - start_time
-                print(formatted_time,'Total columns read: {}'.format(len(data_frame.columns)))
-                print(formatted_time,'Total rows read: {}'.format(len(data_frame.index)))
+                print(formatted_time, 'Total columns read: {}'.format(
+                    len(data_frame.columns)))
+                print(formatted_time, 'Total rows read: {}'.format(
+                    len(data_frame.index)))
                 print("\nFile loaded successfully!")
                 print(f'Time to load {load_time:.3f} sec.')
             if (select_file == "2"):
@@ -254,8 +251,10 @@ while True:
                 start_time = time.time()
                 data_frame = pd.read_csv(selectedfile)
                 end_time = time.time()
-                print(formatted_time,'Total columns read: {}'.format(len(data_frame.columns)))
-                print(formatted_time,'Total rows read: {}'.format(len(data_frame.index)))
+                print(formatted_time, 'Total columns read: {}'.format(
+                    len(data_frame.columns)))
+                print(formatted_time, 'Total rows read: {}'.format(
+                    len(data_frame.index)))
                 print("\nFile loaded successfully!")
                 print(f'Time to load {load_time:.3f} sec.')
             if (select_file == "3"):
@@ -265,8 +264,10 @@ while True:
                 start_time = time.time()
                 data_frame = pd.read_csv(selectedfile)
                 end_time = time.time()
-                print(formatted_time,'Total columns read: {}'.format(len(data_frame.columns)))
-                print(formatted_time,'Total rows read: {}'.format(len(data_frame.index)))
+                print(formatted_time, 'Total columns read: {}'.format(
+                    len(data_frame.columns)))
+                print(formatted_time, 'Total rows read: {}'.format(
+                    len(data_frame.index)))
                 print("\nFile loaded successfully!")
                 print(f'Time to load {load_time:.3f} sec.')
                 with open(selectedfile, 'r') as file:  # open and close file
@@ -303,70 +304,85 @@ while True:
                 print(formatted_time, 'Select column number to Describe:\n')
                 print(formatted_time, 'Please wait...\n')
                 start_time = time.time()
-                file_path = 'Crime_Data_from_2017_to_2019.csv'
-                with open(file_path, 'r') as file:
-                    reader = csv.reader(file)
-                    columns = next(reader)
-                    for i, column in enumerate(columns):
-                        print(f"[{1+i}] <{column} >")
+                for i, column in enumerate(data_frame.columns):
+                    # print the index of the columns
+                    print(f"[{1+i}] <{column} >")
                 selected_column = int(input())
                 # Call the count_elements_in_selected_column function to count the elements in the selected column
                 # Adjust index since user input is 1-based and Python list indexing is 0-based
-                column_index = selected_column - 1
-                element_count = count_elements(file_path, column_index)
-                # "Stats printed successfully! time to process is {load_time:.3f} sec."
                 end_time = time.time()
                 load_time = end_time - start_time
+                column_index = selected_column - 1
 
                 # array of column names
                 cols = data_frame.columns
                 col_name = cols[column_index]
 
-                col_average = average(file_path, col_name)
-                col_sd = standard_deviation(file_path, col_name)
-                col_variance = variance(file_path, col_name)
-                col_minimum = minimum(file_path, col_name)
-                col_maximum = maximum(file_path, col_name)
-                col_median = find_median(file_path, col_name)
-
-                # variable that holds the unique elements of the chosen column
-                unique_count = count_unique_elements(file_path, column_index)
-
                 print([formatted_time], selected_column)
                 print("Column", selected_column, "stats: ")
                 print("=========")
-                print("Count: ", element_count)
-                print("Unqiue: ", unique_count)
-                print("Mean: ", col_average)
-
-                # median = find_median(file_path, column_index)
-                # print("Median: ", median )
-                print("Median: ", col_median)
+                try:
+                    element_count = count_elements(data_frame, col_name)
+                    print("Count: ", element_count)
+                except:
+                    print("Count: Not a valid input")
+                try:
+                    unique_count = count_unique_elements(
+                        data_frame, col_name)
+                    print("Unqiue: ", unique_count)
+                except:
+                    print("Unqiue: Not a valid input")
+                try:
+                    col_average = average(data_frame, col_name)
+                    print("Mean: ", col_average)
+                except:
+                    print("Mean: Not a valid number")
+                try:
+                    col_sd = standard_deviation(data_frame, col_name)
+                    print("Standard Deviation: ", col_sd)
+                except:
+                    print("Standard Deviation: Not a valid number")
+                try:
+                    col_variance = variance(data_frame, col_name)
+                    print("Variance: ", col_variance)
+                except:
+                    print("Variance: Not a valid number")
+                try:
+                    col_minimum = minimum(data_frame, col_name)
+                    print("Minimum: ", col_minimum)
+                except:
+                    print("Minimum: Not a valid number")
+                try:
+                    col_maximum = maximum(data_frame, col_name)
+                    print("Maximum: ", col_maximum)
+                except:
+                    print("Maximum: Not a valid number")
+                try:
+                    col_median = find_median(data_frame, col_name)
+                    print("Median: ", col_median)
+                except:
+                    print("Median: Not a valid number")
+                try:
+                    mode = find_mode(data_frame, col_name)
+                    print("Mode: ", mode)
+                except:
+                    print("Mode: Not a valid number")
 
                 # displaying 01/01/2017 12:00:00 AM, and not the number value
-                mode = find_mode(file_path, col_name)
-                print("Mode: ", mode)
-                print("Standard Deviation: ", col_sd)
-                print("Variance: ", col_variance)
-                print("Minimum: ", col_minimum)
-                print("Maximum: ", col_maximum)
                 print(
                     f"Stats printed successfully! time to process is {load_time:.3f} sec.")
 
             if (select_2 == "24"):
                 print('(24) Search Element in Column: \n******************')
                 print(formatted_time, 'Select column number to perform a search:')
-                colnum = 0
-                cols = []
 
                 # file does not need to be opened again
                 for i, column in enumerate(data_frame.columns):
                     # print the index of the columns
                     print(f"[{1+i}] <{column} >")
-                    colnum = colnum +1;
 
                 selectCol = int(input(""))
-                while selectCol < 1 or selectCol > colnum:
+                while selectCol < 1 or selectCol > 30:
                     print("Input out of bounds. Try again.")
                     for i, column in enumerate(data_frame.columns):
                         # print the index of the columns
@@ -377,18 +393,19 @@ while True:
                 selectElement = input("")
                 print(formatted_time,
                       f"You selected {selectElement}. Searching...")
+                # print(formatted_time, "Searching for: ", selectElement)
                 count = 0
                 found = "empty"
-                start_time = time.time()
-                cols = data_frame.iloc[:, selectCol-1].values
-                cols = cols.astype(str)
-                #print(cols)
-                for i in range(len(cols)):
-                    if cols[i] == selectElement:
-                        found = (selectElement)
-                        count = count + 1
-              
 
+                start_time = time.time()
+                with open(selectedfile) as file:  # open and close file and display the columns
+                    reader = csv.reader(file)  # obj from the csv file
+                    columns = next(reader)  # get the row
+                    # for i, column in enumerate(columns):
+                    for row in reader:
+                        if (row[selectCol-1] == selectElement):
+                            found = (selectElement)
+                            count = count + 1
                 end_time = time.time()
                 search_time = end_time - start_time
                 if (found != "empty"):
@@ -397,7 +414,6 @@ while True:
                         f"Search was successful! time to process is {search_time:.3f} sec.")
                 else:
                     print("Element not found: Heading back to Main Menu\n")
-                
             if (select_2 == "25"):
                 # sort acending/decending
                 print("not implemented")
@@ -428,7 +444,7 @@ while True:
 
         elif (select == "4"):
             try:
-                print("Printing the data_frame. (This takes a long time)")
+                print("Printing the data_frame. (This may takes a long time)")
                 print(data_frame.head)
             except Exception as er:
                 print("File has not loaded.")
