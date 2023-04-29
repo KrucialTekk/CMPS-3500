@@ -195,6 +195,21 @@ def loadingIndicator():
         print(formatted_time, loadwait, end="\r")
         time.sleep(0.40)
     return 0
+
+#(3) Data Analysys
+def crimes_by_year(file_path):
+
+    df = pd.read_csv(file_path)
+    df['Date Rptd'] = pd.to_datetime(df['Date Rptd'])
+    df['Year'] = df['Date Rptd'].dt.year
+    # Column not found: Crime
+    crimes_per_year = df.groupby('Year')['Crime'].nunique()
+    crimes_per_year = crimes_per_year.sort_values(ascending = False)
+    result_df = pd.DataFrame({'Year': crimes_per_year.index, 'Total Unique Crimes': crimes_per_year.values})
+
+    print(result_df)
+    return result_df
+
 # Main Menu++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
