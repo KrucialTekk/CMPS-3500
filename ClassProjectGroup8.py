@@ -27,6 +27,7 @@ except OSError as e:
 # [current time] 'YYYY-MM-DD HH:MM:SS.ssssss'
 current_time = datetime.datetime.now()
 formatted_time = current_time.strftime('%H:%M:%S')  # [current time] HH:MM:SS
+formatted_time2 = "%m/%d/%Y %I:%M:%S %p"
 # This variable is used to hold the correct file name. Set to the first csv file by default, but can be changed to the other csv files in main menu option 1
 selectedfile = 'Crime_Data_from_2017_to_2019.csv'
 
@@ -375,14 +376,17 @@ while True:
             if (select_2 == "24"):
                 print('(24) Search Element in Column: \n******************')
                 print(formatted_time, 'Select column number to perform a search:')
+                colnum = 0
+                cols = []
 
                 # file does not need to be opened again
                 for i, column in enumerate(data_frame.columns):
                     # print the index of the columns
                     print(f"[{1+i}] <{column} >")
+                    colnum = colnum +1;
 
                 selectCol = int(input(""))
-                while selectCol < 1 or selectCol > 30:
+                while selectCol < 1 or selectCol > colnum:
                     print("Input out of bounds. Try again.")
                     for i, column in enumerate(data_frame.columns):
                         # print the index of the columns
@@ -393,19 +397,18 @@ while True:
                 selectElement = input("")
                 print(formatted_time,
                       f"You selected {selectElement}. Searching...")
-                # print(formatted_time, "Searching for: ", selectElement)
                 count = 0
                 found = "empty"
-
                 start_time = time.time()
-                with open(selectedfile) as file:  # open and close file and display the columns
-                    reader = csv.reader(file)  # obj from the csv file
-                    columns = next(reader)  # get the row
-                    # for i, column in enumerate(columns):
-                    for row in reader:
-                        if (row[selectCol-1] == selectElement):
-                            found = (selectElement)
-                            count = count + 1
+                cols = data_frame.iloc[:, selectCol-1].values
+                cols = cols.astype(str)
+                #print(cols)
+                for i in range(len(cols)):
+                    if cols[i] == selectElement:
+                        found = (selectElement)
+                        count = count + 1
+              
+
                 end_time = time.time()
                 search_time = end_time - start_time
                 if (found != "empty"):
@@ -414,6 +417,7 @@ while True:
                         f"Search was successful! time to process is {search_time:.3f} sec.")
                 else:
                     print("Element not found: Heading back to Main Menu\n")
+
             if (select_2 == "25"):
                 # sort acending/decending
                 print("not implemented")
@@ -436,11 +440,36 @@ while True:
         # print(location.head(10))
 
         elif (select == "3"):  # Data analysis called here
+            unique_crimes = ""
+            most_crimes  = ""
+        #  count_crimes = ""
+           # count_crimes = ""
             print('Data Analysis: \n******************')
-            print(formatted_time,
-                  f'Show the total unique count of crimes per year sorted in descending order.')
+            try:
+                data_frame['DATE OCC'] = pd.to_datetime(data_frame['DATE OCC'])
+                unique_crimes = data_frame['DATE OCC'].dt.year.value_counts().sort_index(ascending=False)
+                print(formatted_time,
+                        f'Show the total unique count of crimes per year sorted in descending order: ')
+                print(unique_crimes,"\n")
 
-            print(formatted_time, f'List the top 5 more dangerous areas for older man (age from 65 and more) in december of 2018 in West LA.')
+                print(formatted_time, f'Top 5 areas with Most Crime events in all years(sorted by year and number of crime events)')
+                most_crimes = data_frame['AREA NAME'].value_counts().head(5)
+                print(most_crimes,"\n")
+
+                data_frame['Date Rptd'] = pd.to_datetime(data_frame['Date Rptd'],format = formatted_time2)
+                print(formatted_time, f'All months and unique count of crimes sorted in increasing order')
+                count_crimes = data_frame.groupby(data_frame['Date Rptd'].dt.to_period("M")).size()
+                print(count_crimes.sort_values(ascending=True),"\n")
+
+                #continue data analyisis
+                print(formatted_time, f'')
+
+                print(formatted_time, f'Top 5 most dangerous areas for older men (age from 65+) in december of 2018 in West LA.')
+            except Exception as error3:
+                print(f"{type(error3)}: {error3}")
+               # print("File not loaded.")
+
+
 
         elif (select == "4"):
             try:
