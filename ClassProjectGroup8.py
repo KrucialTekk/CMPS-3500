@@ -470,6 +470,10 @@ while True:
 
               
                 print(formatted_time, f'Top 10 streets with most crimes in LA in 2019 & total crimes in each street')#unfinished
+                top_streets = data_frame.groupby('LOCATION').size().reset_index(cc = 'Crime Count')
+                street_crimes = top_streets.head(10).sort_values('Crime Count', ascending=False)
+                print(street_crimes,"\n") 
+
                 print(formatted_time, f'Top 5 most dangerous hours in Hollywood(and crimes per hour')#unfinished
                 print(formatted_time, f'Details of the crime that took the longest time to be reported')#unfinished
                 
