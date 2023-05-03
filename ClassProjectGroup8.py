@@ -468,16 +468,22 @@ while True:
                 count_crimes = data_frame.groupby(data_frame['Date Rptd'].dt.to_period("M")).size()
                 print(count_crimes.sort_values(ascending=True),"\n")
 
-                #continue data analyisis
-                print(formatted_time, f'Top 10 streets with most crimes in LA in 2019 & total crimes in each street')
-                print(formatted_time, f'Top 5 most dangerous hours in Hollywood(and crimes per hour')
-                print(formatted_time, f'Details of the crime that took the longest time to be reported')
+              
+                print(formatted_time, f'Top 10 streets with most crimes in LA in 2019 & total crimes in each street')#unfinished
+                print(formatted_time, f'Top 5 most dangerous hours in Hollywood(and crimes per hour')#unfinished
+                print(formatted_time, f'Details of the crime that took the longest time to be reported')#unfinished
+                
                 print(formatted_time, f'Top 10 most common crime types of all years')
-                print(formatted_time, f'Are women or men more likely to be a victem in LA between 11:00am to 1:00p,?')
-                print(formatted_time, f'Month with most credit card frauds in LA in 2019')
+                top10 = data_frame.groupby('Crm Cd Desc').size().sort_values(ascending=False)
+                common_crimes = top10.head(10)
+                print(common_crimes,"\n")
+
+                
+                print(formatted_time, f'Are women or men more likely to be a victem in LA between 11:00am to 1:00p,?')#unfinished
+                print(formatted_time, f'Month with most credit card frauds in LA in 2019')#unfinished
 
 
-                print(formatted_time, f'Top 5 most dangerous areas for older men (age from 65+) in december of 2018 in West LA.')
+                print(formatted_time, f'Top 5 most dangerous areas for older men (age from 65+) in december of 2018 in West LA.')#unfinished
             except Exception as error3:
                 print(f"{type(error3)}: {error3}")
                # print("File not loaded.")
