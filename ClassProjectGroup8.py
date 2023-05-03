@@ -470,7 +470,7 @@ while True:
 
               
                 print(formatted_time, f'Top 10 streets with most crimes in LA in 2019 & total crimes in each street')#unfinished
-                top_streets = data_frame.groupby('LOCATION').size().reset_index(cc = 'Crime Count')
+                top_streets = data_frame.groupby('LOCATION').size().reset_index(name = 'Crime Count')
                 street_crimes = top_streets.head(10).sort_values('Crime Count', ascending=False)
                 print(street_crimes,"\n") 
 
