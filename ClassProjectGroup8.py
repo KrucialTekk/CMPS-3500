@@ -189,7 +189,7 @@ def loadingIndicator():
         loadwait = "Now Loading" + "." * cnt
         cnt = cnt + 1
         print(formatted_time, loadwait, end="\r")
-        time.sleep(0.55)
+        time.sleep(0.425)
     return 0
 
 #(3) Data Analysys
@@ -442,7 +442,7 @@ while True:
         elif (select == "3"):  # Data analysis called here
             unique_crimes = ""
             most_crimes  = ""
-        #  count_crimes = ""
+            count_crimes = ""
            # count_crimes = ""
             print('Data Analysis: \n******************')
             try:
@@ -462,7 +462,13 @@ while True:
                 print(count_crimes.sort_values(ascending=True),"\n")
 
                 #continue data analyisis
-                print(formatted_time, f'')
+                 print(formatted_time, f'Top 10 streets with most crimes in LA in 2019 & total crimes in each street')
+                 print(formatted_time, f'Top 5 most dangerous hours in Hollywood(and crimes per hour')
+                 print(formatted_time, f'Details of the crime that took the longest time to be reported')
+                 print(formatted_time, f'Top 10 most common crime types of all years')
+                 print(formatted_time, f'Are women or men more likely to be a victem in LA between 11:00am to 1:00p,?')
+                 print(formatted_time, f'Month with most credit card frauds in LA in 2019')
+
 
                 print(formatted_time, f'Top 5 most dangerous areas for older men (age from 65+) in december of 2018 in West LA.')
             except Exception as error3:
