@@ -469,12 +469,12 @@ while True:
                 print(count_crimes.sort_values(ascending=True),"\n")
 
                 #continue data analyisis
-                 print(formatted_time, f'Top 10 streets with most crimes in LA in 2019 & total crimes in each street')
-                 print(formatted_time, f'Top 5 most dangerous hours in Hollywood(and crimes per hour')
-                 print(formatted_time, f'Details of the crime that took the longest time to be reported')
-                 print(formatted_time, f'Top 10 most common crime types of all years')
-                 print(formatted_time, f'Are women or men more likely to be a victem in LA between 11:00am to 1:00p,?')
-                 print(formatted_time, f'Month with most credit card frauds in LA in 2019')
+                print(formatted_time, f'Top 10 streets with most crimes in LA in 2019 & total crimes in each street')
+                print(formatted_time, f'Top 5 most dangerous hours in Hollywood(and crimes per hour')
+                print(formatted_time, f'Details of the crime that took the longest time to be reported')
+                print(formatted_time, f'Top 10 most common crime types of all years')
+                print(formatted_time, f'Are women or men more likely to be a victem in LA between 11:00am to 1:00p,?')
+                print(formatted_time, f'Month with most credit card frauds in LA in 2019')
 
 
                 print(formatted_time, f'Top 5 most dangerous areas for older men (age from 65+) in december of 2018 in West LA.')
