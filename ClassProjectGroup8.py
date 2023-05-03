@@ -443,7 +443,14 @@ while True:
             unique_crimes = ""
             most_crimes  = ""
             count_crimes = ""
-           # count_crimes = ""
+            street_crimes = ""
+            hollywood_crimes = ""
+            longest_reported = ""
+            common_crimes = ""
+            victem_crimes = ""
+            fraud_crimes = ""
+            dangerous_areas = ""
+            
             print('Data Analysis: \n******************')
             try:
                 data_frame['DATE OCC'] = pd.to_datetime(data_frame['DATE OCC'])
