@@ -434,10 +434,6 @@ while True:
                 print('(27)Back to Main Menu: \n******************')
                 # select = input("(1) Load Data\n(2) Exploring Data\n(3) Data Analysis\n(4) Print Data Set\n(5) Quit\n")
 
-        # example of grouping the csv file for something specific
-        # list2 = ["LAT", "LON"]
-        # location = data_frame.groupby(["LOCATION"], as_index=False)[list2].count()
-        # print(location.head(10))
 
         elif (select == "3"):  # Data analysis called here
             unique_crimes = ""
@@ -474,8 +470,35 @@ while True:
                 street_crimes = top_streets.head(10).sort_values('Crime Count', ascending=False)
                 print(street_crimes,"\n") 
 
-                print(formatted_time, f'Top 5 most dangerous hours in Hollywood(and crimes per hour')#unfinished
-                print(formatted_time, f'Details of the crime that took the longest time to be reported')#unfinished
+                
+                print(formatted_time, f'Top 5 most dangerous hours in Hollywood (and crimes per hour)\n')
+                print("Times are listed in military time.")
+                hollywood_crimes = data_frame[data_frame['AREA NAME'] == 'Hollywood']
+                hourly_crimes = hollywood_crimes.groupby(hollywood_crimes['TIME OCC'].apply(lambda x: int(str(x).zfill(4)[:2]))).size().sort_values(ascending=False)
+                dangerous_hours = hourly_crimes.head(5)
+
+                # Convert output to string and remove the dtype line
+                dangerous_hours_str = '\n'.join([line for line in str(dangerous_hours).split('\n') if 'dtype' not in line])
+                print(dangerous_hours_str, "\n")
+
+
+                
+
+                
+                #print(formatted_time, f'Details of the crime that took the longest time to be reported')#unfinished
+                print(formatted_time, f'Details of the crimes that took the longest time to be reported')
+
+                # Calculate the time difference between the 'DATE OCC' and 'Date Rptd' columns
+                data_frame['Report Time Difference'] = (data_frame['Date Rptd'] - data_frame['DATE OCC']).dt.days
+
+                # Find the maximum time difference
+                max_time_diff = data_frame['Report Time Difference'].max()
+
+                # Get the details of all crimes with the longest time to be reported
+                longest_reported_crimes = data_frame[data_frame['Report Time Difference'] == max_time_diff]
+
+                print(longest_reported_crimes, "\n")
+
                 
                 print(formatted_time, f'Top 10 most common crime types of all years')
                 top10 = data_frame.groupby('Crm Cd Desc').size().sort_values(ascending=False)
