@@ -292,24 +292,23 @@ while True:
                 print('(23) Describe Columns: \n******************')
                 print(formatted_time, 'Select column number to Describe:\n')
                 print(formatted_time, 'Please wait...\n')
-                start_time = time.time()
                 for i, column in enumerate(data_frame.columns):
                     # print the index of the columns
                     print(f"[{1+i}] <{column} >")
                 selected_column = int(input())
-                # Call the count_elements_in_selected_column function to count the elements in the selected column
-                # Adjust index since user input is 1-based and Python list indexing is 0-based
-                end_time = time.time()
-                load_time = end_time - start_time
                 column_index = selected_column - 1
 
                 # array of column names
                 cols = data_frame.columns
                 col_name = cols[column_index]
+                # Call the count_elements_in_selected_column function to count the elements in the selected column
+                # Adjust index since user input is 1-based and Python list indexing is 0-based
 
                 print([formatted_time], selected_column)
                 print("Column", selected_column, "stats: ")
-                print("=========")
+                print("=====================")
+                print("[Press 'Ctrl + C' if computation takes too long!]")
+                start_time = time.time()
                 try:
                     element_count = count_elements(data_frame, col_name)
                     print("Count: ", element_count)
@@ -355,9 +354,10 @@ while True:
                     mode = find_mode(data_frame, col_name)
                     print("Mode: ", mode)
                 except:
-                    print("Mode: Not a valid number")
+                    print("Mode: Could not process input")
+                end_time = time.time()
+                load_time = end_time - start_time
 
-                # displaying 01/01/2017 12:00:00 AM, and not the number value
                 print(
                     f"Stats printed successfully! time to process is {load_time:.3f} sec.")
 
@@ -513,7 +513,28 @@ while True:
                 
                 print(gender_victim_analysis, "\n")
                 
-                print(formatted_time, f'Month with most credit card frauds in LA in 2019')#unfinished
+                # Month with most credit card frauds in 2019
+                print(formatted_time,
+                      f'Month with most credit card frauds in LA in 2019: ')
+                df = pd.read_csv(selectedfile)
+                df['Date Rptd'] = df['Date Rptd'].str.extract(
+                    r'(\d+\/\d+\/\d+)', expand=False)
+                df['DATE OCC'] = df['DATE OCC'].str.extract(
+                    r'(\d+)', expand=False)
+                months = ["January", "February", "March", "April", "May", "June",
+                          "July", "August", "September", "October", "November", "December"]
+
+                df.columns = [column.replace(" ", "_")
+                              for column in df.columns]
+                most_fraud = df.query(
+                    'Crm_Cd_Desc == "CREDIT CARDS, FRAUD USE ($950 & UNDER" and year == 2019')
+                fraudz = most_fraud.groupby(['DATE_OCC'])[
+                    'DATE_OCC'].count().reset_index(name="count")
+                fraudz = fraudz.sort_values(by="count", ascending=False)
+                arr = fraudz['DATE_OCC'].tolist()
+                index = int(arr[0]) - 1
+                highest_fraud = months[index]
+                print(highest_fraud, "\n")
 
 
                 print(formatted_time, f'Top 5 most dangerous areas for older men (age from 65+) in december of 2018 in West LA.')#unfinished
