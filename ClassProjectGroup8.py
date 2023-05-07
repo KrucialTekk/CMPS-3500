@@ -535,9 +535,27 @@ while True:
                 index = int(arr[0]) - 1
                 highest_fraud = months[index]
                 print(highest_fraud, "\n")
+                
+                #Most dangerous areas for men 65 or older
+                print(formatted_time, f'Top 5 most dangerous areas for older men (age from 65+) in december of 2018.')
+                df = pd.read_csv(selectedfile)
+                df.columns = [column.replace(" ", "_")
+                              for column in df.columns]
+                df['Date_Rptd'] = df['Date_Rptd'].str.extract(
+                    r'(\d+)', expand=False)
 
-
-                print(formatted_time, f'Top 5 most dangerous areas for older men (age from 65+) in december of 2018 in West LA.')#unfinished
+                oldies = df.query(
+                    'Vict_Age >= 65 and year == 2018 and Vict_Sex == "M" and Date_Rptd == "12"')
+                oldies = oldies.groupby(['AREA_NAME'])[
+                    'AREA_NAME'].count().reset_index(name="count")
+                oldies = oldies.sort_values(by="count", ascending=False)
+                arr = oldies['AREA_NAME'].tolist()
+                i = 0
+                while i < 5:
+                    print(arr[i])
+                    i = i + 1
+                print("\n")
+               
             except Exception as error3:
                 print(f"{type(error3)}: {error3}")
                # print("File not loaded.")
