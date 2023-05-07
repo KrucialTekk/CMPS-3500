@@ -446,6 +446,8 @@ while True:
             victem_crimes = ""
             fraud_crimes = ""
             dangerous_areas = ""
+            gender_victim_analysis = ""
+
             
             print('Data Analysis: \n******************')
             try:
@@ -506,7 +508,23 @@ while True:
                 print(common_crimes,"\n")
 
                 
-                print(formatted_time, f'Are women or men more likely to be a victem in LA between 11:00am to 1:00p,?')#unfinished
+                print(formatted_time, f'Are women or men more likely to be a victim in LA between 11:00am to 1:00pm?')
+                time_filtered_data = data_frame[(data_frame['TIME OCC'].apply(lambda x: int(str(x).zfill(4)[:2])) >= 11) & (data_frame['TIME OCC'].apply(lambda x: int(str(x).zfill(4)[:2])) < 13)]
+
+                # Count the number of male and female victims
+                male_victims = time_filtered_data[time_filtered_data['Vict Sex'] == 'M'].shape[0]
+                female_victims = time_filtered_data[time_filtered_data['Vict Sex'] == 'F'].shape[0]
+
+                # Compare the number of male and female victims
+                if male_victims > female_victims:
+                    gender_victim_analysis = "Men are more likely to be a victim in LA between 11:00am and 1:00pm."
+                elif male_victims < female_victims:
+                    gender_victim_analysis = "Women are more likely to be a victim in LA between 11:00am and 1:00pm."
+                else:
+                    gender_victim_analysis = "Men and women are equally likely to be a victim in LA between 11:00am and 1:00pm."
+                
+                print(gender_victim_analysis, "\n")
+                
                 print(formatted_time, f'Month with most credit card frauds in LA in 2019')#unfinished
 
 
