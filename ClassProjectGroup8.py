@@ -16,6 +16,7 @@ import logging
 import csv  # read the csv file(s)
 import time  # fine the load time or time to load
 import statistics  # statistics of numeric data
+from collections import Counter
 
 try:
     data_frame = None
@@ -103,21 +104,8 @@ def average(data, col_name):
 def find_mode(data, col_name):
     arr = create_array(data, col_name)
     arr = drop_zero(arr)
-    unique_num_list = list(set(arr))
-    dictionary = {}
-    for i in unique_num_list:
-        get_count = arr.count(i)
-        dictionary[i] = get_count
-    max_repeat = 0
-    for i in unique_num_list:
-        get_value = dictionary[i]
-        if get_value > max_repeat:
-            max_repeat = get_value
-    result = ''
-    for i in unique_num_list:
-        if dictionary[i] == max_repeat:
-            result = result+str(i)+" "
-    return result
+    c = Counter(arr)
+    return [k for k, v in c.items() if v == c.most_common(1)[0][1]]
 
 # Variance function
 
