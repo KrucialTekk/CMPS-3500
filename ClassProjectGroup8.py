@@ -511,6 +511,7 @@ while True:
                 # Get the details of all crimes with the longest time to be reported
                 longest_reported_crimes = data_frame[data_frame['Report Time Difference'] == max_time_diff]
                 print(longest_reported_crimes, "\n")
+                data_frame.drop('Report Time Difference', axis=1, inplace=True)
 
                 
                 print(formatted_time, f'Top 10 most common crime types of all years')
