@@ -216,7 +216,7 @@ while True:
                   "Select the numer of the file to load from the list below:")
             # print(" Please select an option:")
             select_file = input(
-                " Please select a file: \n[1] Crime_Data_from_2017_to_2019.csv\n[2] Crime_Data_from_2020_to_2021.csv\n[3] Test.csv\n")
+                "Please select a file: \n[1] Crime_Data_from_2017_to_2019.csv\n[2] Crime_Data_from_2020_to_2021.csv\n[3] Test.csv\n")
             if (select_file == "1"):
                 print(formatted_time, "You selected: Option 1")
                 loadingIndicator()
@@ -367,9 +367,7 @@ while True:
                 colnum = 0
                 cols = []
 
-                # file does not need to be opened again
                 for i, column in enumerate(data_frame.columns):
-                    # print the index of the columns
                     print(f"[{1+i}] <{column} >")
                     colnum = colnum +1;
 
@@ -407,13 +405,44 @@ while True:
                     print("Element not found: Heading back to Main Menu\n")
 
             if (select_2 == "25"):
-                # sort acending/decending
-                print("not implemented")
-            if (select_2 == "26"):
-                displayinput = int(input("How many columns to display?\n"))
                 try:
-                    print("Printing your request. (This might take a long time)\n")
-                    print(data_frame.head(displayinput))
+                    print(formatted_time, 'Select column number to perform a search:')
+                    colnum = 0
+                    cols = []
+
+                    for i, column in enumerate(data_frame.columns):
+                        print(f"[{1+i}] <{column} >")
+                        colnum = colnum +1;
+
+                    selectCol = int(input(""))
+                    while selectCol < 1 or selectCol > colnum:
+                        print("Input out of bounds. Try again.")
+                        for i, column in enumerate(data_frame.columns):
+                            # print the index of the columns
+                            print(f"[{1+i}] <{column} >")
+                        selectCol = int(input(""))
+                    print(formatted_time, "You selected column: ", selectCol)
+                    print(formatted_time, "Do you want to sort in Acending or Decending order?")
+                    print(formatted_time, "Type A or D.")
+                    sort_input = input("")
+                    if(sort_input == "A"):
+                        data_frame.sort_values([data_frame.columns[selectCol-1]],axis=0,ascending=[True],inplace = True)
+                        print(data_frame[data_frame.columns[selectCol-1]])
+                    if(sort_input == "D"):
+                        data_frame.sort_values([data_frame.columns[selectCol-1]],axis=0,ascending=[False],inplace=True)
+                        print(data_frame[data_frame.columns[selectCol-1]])
+                except Exception as err25:
+                    print(f"{type(err25)}: {err25}")
+
+
+            if (select_2 == "26"):
+                displayinput = int(input("Do you want to display [100], [1000], or [5000] rows of the dataset?\n"))
+                try:
+                    if (displayinput == 100 or displayinput == 1000 or displayinput == 5000):
+                        print("Printing your request.\n")
+                        print(data_frame.head(displayinput))
+                    else:
+                        print("invalid input. Try again.")
                 except Exception as exc:
                     print("File has not loaded")
 
@@ -429,15 +458,15 @@ while True:
             count_crimes = ""
             street_crimes = ""
             hollywood_crimes = ""
-            longest_reported = ""
+        #    longest_reported = ""
             common_crimes = ""
-            victem_crimes = ""
-            fraud_crimes = ""
+       #     victem_crimes = ""
+      #      fraud_crimes = ""
             dangerous_areas = ""
             gender_victim_analysis = ""
 
             
-            print('Data Analysis: \n******************')
+            print('Beginning Data Analysis: \n***************************')
             try:
                 data_frame['DATE OCC'] = pd.to_datetime(data_frame['DATE OCC'])
                 unique_crimes = data_frame['DATE OCC'].dt.year.value_counts().sort_index(ascending=False)
@@ -471,22 +500,16 @@ while True:
                 dangerous_hours_str = '\n'.join([line for line in str(dangerous_hours).split('\n') if 'dtype' not in line])
                 print(dangerous_hours_str, "\n")
 
-
-                
-
                 
                 #print(formatted_time, f'Details of the crime that took the longest time to be reported')#unfinished
                 print(formatted_time, f'Details of the crimes that took the longest time to be reported')
 
                 # Calculate the time difference between the 'DATE OCC' and 'Date Rptd' columns
                 data_frame['Report Time Difference'] = (data_frame['Date Rptd'] - data_frame['DATE OCC']).dt.days
-
                 # Find the maximum time difference
                 max_time_diff = data_frame['Report Time Difference'].max()
-
                 # Get the details of all crimes with the longest time to be reported
                 longest_reported_crimes = data_frame[data_frame['Report Time Difference'] == max_time_diff]
-
                 print(longest_reported_crimes, "\n")
 
                 
@@ -554,7 +577,9 @@ while True:
                 while i < 5:
                     print(arr[i])
                     i = i + 1
-                print("\n")
+              #  print("\n")
+              
+                print("\nData Analysis Complete. Returning to Main Menu...")
                
             except Exception as error3:
                 print(f"{type(error3)}: {error3}")
