@@ -603,3 +603,6 @@ while True:
             "(1) Load Data\n(2) Exploring Data\n(3) Data Analysis\n(4) Print Data Set\n(5) Quit\n")
     except Exception as err:
         print(f"{type(err)}: {err}")
+    except KeyboardInterrupt:
+        #if user needs ctrl-c, program will just go back to menu
+        print("Data proccesing took too long. Redirecting to menu...")
