@@ -605,4 +605,4 @@ while True:
         print(f"{type(err)}: {err}")
     except KeyboardInterrupt:
         #if user needs ctrl-c, program will just go back to menu
-        print("Data proccesing took too long. Redirecting to menu...")
+        print("\nData proccesing took too long. Redirecting to previous menu...")
