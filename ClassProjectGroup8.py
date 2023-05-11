@@ -312,43 +312,43 @@ while True:
                     element_count = count_elements(data_frame, col_name)
                     print("Count: ", element_count)
                 except:
-                    print("Count: Not a valid input")
+                    print("Count: Not applicable")
                 try:
                     unique_count = count_unique_elements(
                         data_frame, col_name)
                     print("Unqiue: ", unique_count)
                 except:
-                    print("Unqiue: Not a valid input")
+                    print("Unqiue: Not applicable")
                 try:
                     col_average = average(data_frame, col_name)
                     print("Mean: ", col_average)
                 except:
-                    print("Mean: Not a valid number")
+                    print("Mean: Not applicable")
                 try:
                     col_sd = standard_deviation(data_frame, col_name)
                     print("Standard Deviation: ", col_sd)
                 except:
-                    print("Standard Deviation: Not a valid number")
+                    print("Standard Deviation: Not applicable")
                 try:
                     col_variance = variance(data_frame, col_name)
                     print("Variance: ", col_variance)
                 except:
-                    print("Variance: Not a valid number")
+                    print("Variance: Not applicable")
                 try:
                     col_minimum = minimum(data_frame, col_name)
                     print("Minimum: ", col_minimum)
                 except:
-                    print("Minimum: Not a valid number")
+                    print("Minimum: Not applicable")
                 try:
                     col_maximum = maximum(data_frame, col_name)
                     print("Maximum: ", col_maximum)
                 except:
-                    print("Maximum: Not a valid number")
+                    print("Maximum: Not applicable")
                 try:
                     col_median = find_median(data_frame, col_name)
                     print("Median: ", col_median)
                 except:
-                    print("Median: Not a valid number")
+                    print("Median: Not applicable")
                 try:
                     mode = find_mode(data_frame, col_name)
                     print("Mode: ", mode)
