@@ -13,9 +13,9 @@ import numpy
 import sys
 import traceback
 import logging
-import csv  # read the csv file(s)
-import time  # fine the load time or time to load
-import statistics  # statistics of numeric data
+import csv  
+import time  
+import statistics  
 from collections import Counter
 
 try:
@@ -25,11 +25,10 @@ except OSError as e:
     print(f"{type(e)}: {e}")
     exit(0)
 
-# [current time] 'YYYY-MM-DD HH:MM:SS.ssssss'
+
 current_time = datetime.datetime.now()
-formatted_time = current_time.strftime('%H:%M:%S')  # [current time] HH:MM:SS
+formatted_time = current_time.strftime('%H:%M:%S') 
 formatted_time2 = "%m/%d/%Y %I:%M:%S %p"
-# This variable is used to hold the correct file name. Set to the first csv file by default, but can be changed to the other csv files in main menu option 1
 selectedfile = 'Crime_Data_from_2017_to_2019.csv'
 
 # Function Code Here ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -40,7 +39,7 @@ def testFunc(num1, num2):
     return sum
 
 
-def counter():  # this doesnt do anything yet
+def counter():  
     return 0
 
 
@@ -200,7 +199,7 @@ def crimes_by_year(file_path):
 print("Main Menu:\n*********")
 select = input(
     "(1) Load Data\n(2) Exploring Data\n(3) Data Analysis\n(4) Print Data Set\n(5) Quit\n")
-while select.isnumeric() != 1:  # Error check is input is not a number
+while select.isnumeric() != 1:  
     print("-Input was not valid. Try again.-")
     select = input(
         "(1) Load Data\n(2) Exploring Data\n(3) Data Analysis\n(4) Print Data Set\n(5) Quit\n")
@@ -210,17 +209,17 @@ while True:
         pd.set_option('display.max_columns', 30)
         pd.set_option('display.max_rows', 9999999)
         if (select == "1"):
-            # if data_frame.empty != True:
+           
             print("Load data set:\n**************")
             print(formatted_time,
                   "Select the numer of the file to load from the list below:")
-            # print(" Please select an option:")
+          
             select_file = input(
                 "Please select a file: \n[1] Crime_Data_from_2017_to_2019.csv\n[2] Crime_Data_from_2020_to_2021.csv\n[3] Test.csv\n")
             if (select_file == "1"):
                 print(formatted_time, "You selected: Option 1")
                 loadingIndicator()
-                # use this to read the correct file whenever it is needed
+              
                 selectedfile = 'Crime_Data_from_2017_to_2019.csv'
                 start_time = time.time()
                 data_frame = pd.read_csv(selectedfile)
@@ -235,7 +234,7 @@ while True:
             if (select_file == "2"):
                 print(formatted_time, "You selected: Option 1")
                 loadingIndicator()
-                # use this to read the correct file whenever it is needed
+              
                 selectedfile = 'Crime_Data_from_2020_to_2021.csv'
                 start_time = time.time()
                 data_frame = pd.read_csv(selectedfile)
@@ -249,7 +248,7 @@ while True:
             if (select_file == "3"):
                 print(formatted_time, "You selected: Option 1")
                 loadingIndicator()
-                selectedfile = 'Test.csv'  # use this to read the correct file whenever it is needed
+                selectedfile = 'Test.csv'  
                 start_time = time.time()
                 data_frame = pd.read_csv(selectedfile)
                 end_time = time.time()
@@ -259,7 +258,7 @@ while True:
                     len(data_frame.index)))
                 print("\nFile loaded successfully!")
                 print(f'Time to load {load_time:.3f} sec.')
-                with open(selectedfile, 'r') as file:  # open and close file
+                with open(selectedfile, 'r') as file:  
                     print(calltest)
 
         elif (select == "2"):
@@ -267,9 +266,9 @@ while True:
             select_2 = input("(21) List all columns\n(22) Drop Columns\n(23) Describe Columns\n(24) Search Element in Column\n(25) Sort in Ascending/Descending Order \n(26) Select Columns to Display\n(27) Back to Main Menu\n")
             if (select_2 == "21"):
                 print('(21) List all columns: \n******************')
-                with open('Crime_Data_from_2017_to_2019.csv', 'r') as file:  # open and close file
-                    reader = csv.reader(file)  # obj from the csv file
-                    columns = next(reader)  # get the row
+                with open('Crime_Data_from_2017_to_2019.csv', 'r') as file:  
+                    reader = csv.reader(file)  
+                    columns = next(reader) 
                     for i, column in enumerate(columns):
                         # print the index of the columns
                         print(f"[{1+i}] <{column} >")
@@ -302,7 +301,7 @@ while True:
                 cols = data_frame.columns
                 col_name = cols[column_index]
                 # Call the count_elements_in_selected_column function to count the elements in the selected column
-                # Adjust index since user input is 1-based and Python list indexing is 0-based
+                
 
                 print([formatted_time], selected_column)
                 print("Column", selected_column, "stats: ")
@@ -447,9 +446,9 @@ while True:
                     print("File has not loaded")
 
             if (select_2 == "27"):
-                # Make it when the user selecet 25, it goes back to main
+                # Make it when the user selecet 27, it goes back to main
                 print('(27)Back to Main Menu: \n******************')
-                # select = input("(1) Load Data\n(2) Exploring Data\n(3) Data Analysis\n(4) Print Data Set\n(5) Quit\n")
+                
 
 
         elif (select == "3"):  # Data analysis called here
@@ -458,10 +457,7 @@ while True:
             count_crimes = ""
             street_crimes = ""
             hollywood_crimes = ""
-        #    longest_reported = ""
             common_crimes = ""
-       #     victem_crimes = ""
-      #      fraud_crimes = ""
             dangerous_areas = ""
             gender_victim_analysis = ""
 
@@ -501,7 +497,7 @@ while True:
                 print(dangerous_hours_str, "\n")
 
                 
-                #print(formatted_time, f'Details of the crime that took the longest time to be reported')#unfinished
+               
                 print(formatted_time, f'Details of the crimes that took the longest time to be reported')
 
                 # Calculate the time difference between the 'DATE OCC' and 'Date Rptd' columns
@@ -578,13 +574,13 @@ while True:
                 while i < 5:
                     print(arr[i])
                     i = i + 1
-              #  print("\n")
+          
               
                 print("\nData Analysis Complete. Returning to Main Menu...")
                
             except Exception as error3:
                 print(f"{type(error3)}: {error3}")
-               # print("File not loaded.")
+               
 
 
 
@@ -597,7 +593,7 @@ while True:
 
         elif (select == "5"):
             exit(0)
-        # else :
+       
         print("\n-Input another valid command-")
         select = input(
             "(1) Load Data\n(2) Exploring Data\n(3) Data Analysis\n(4) Print Data Set\n(5) Quit\n")
