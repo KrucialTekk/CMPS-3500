@@ -496,18 +496,29 @@ while True:
                 dangerous_hours_str = '\n'.join([line for line in str(dangerous_hours).split('\n') if 'dtype' not in line])
                 print(dangerous_hours_str, "\n")
 
-                
-               
-                print(formatted_time, f'Details of the crimes that took the longest time to be reported')
+                pd.set_option('display.max_rows', 10)
+                pd.set_option('display.max_columns', 10)
+                pd.set_option('display.width', 1000)
+                pd.options.display.float_format = "{:.2f}".format
+
+                print(f'{formatted_time}: Details of the crimes that took the longest time to be reported\n')
 
                 # Calculate the time difference between the 'DATE OCC' and 'Date Rptd' columns
                 data_frame['Report Time Difference'] = (data_frame['Date Rptd'] - data_frame['DATE OCC']).dt.days
+
                 # Find the maximum time difference
                 max_time_diff = data_frame['Report Time Difference'].max()
+
                 # Get the details of all crimes with the longest time to be reported
                 longest_reported_crimes = data_frame[data_frame['Report Time Difference'] == max_time_diff]
-                print(longest_reported_crimes, "\n")
+
+                # Print the DataFrame in a more readable format
+                print(longest_reported_crimes)
+
+                # Drop the 'Report Time Difference' column
                 data_frame.drop('Report Time Difference', axis=1, inplace=True)
+               
+                
 
                 
                 print(formatted_time, f'Top 10 most common crime types of all years')
