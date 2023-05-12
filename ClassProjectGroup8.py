@@ -436,8 +436,8 @@ while True:
             try:
 
                 print("Exploring Data: \n******************")
-                select_3 = input("(1) Top 5 Areas\n" + 
-                        "(2) Top 5 areas with mos crimes in LA 2019\n" +
+                select_3 = input("(1) Total unique count of crimes per year\n" + 
+                        "(2) Top 5 areas with most crimes in LA 2019\n" +
                         "(3) All months and unique count of crimes\n" +
                         "(4) Top 10 streets with most crimes in LA 2019\n" +
                         "(5) Top 5 most dangerous times in Hollywood\n" +
