@@ -462,6 +462,7 @@ while True:
                     print(most_crimes,"\n")
 
                 elif (select_3 == "3"):
+                    
                     print(formatted_time, f'All months and unique count of crimes sorted in increasing order')
                     count_crimes = data_frame.groupby('DATE OCC')['Crm Cd'].nunique()
                     count_crimes = count_crimes.sort_values(ascending = True)
@@ -592,6 +593,7 @@ while True:
                     most_crimes = data_frame['AREA NAME'].value_counts().head(5)
                     print(most_crimes,"\n")
 
+                    pd.set_option('display.max_rows', 100)
                     print(formatted_time, f'All months and unique count of crimes sorted in increasing order')
                     count_crimes = data_frame.groupby('DATE OCC')['Crm Cd'].nunique()
                     count_crimes = count_crimes.sort_values(ascending = True)
