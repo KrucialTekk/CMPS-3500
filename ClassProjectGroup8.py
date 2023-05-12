@@ -187,7 +187,7 @@ while True:
                   "Select the numer of the file to load from the list below:")
           
             select_file = input(
-                "Please select a file: \n[1] Crime_Data_from_2017_to_2019.csv\n[2] Crime_Data_from_2020_to_2021.csv\n[3] Test.csv\n")
+                "Please select a file: \n[1] Crime_Data_from_2017_to_2019.csv\n[2] Crime_Data_from_2020_to_2021.csv\n[3] Crime_Data_presentation.csv\n")
             if (select_file == "1"):
                 print(formatted_time, "You selected: Option 1")
                 loadingIndicator()
@@ -204,13 +204,14 @@ while True:
                 print("\nFile loaded successfully!")
                 print(f'Time to load {load_time:.3f} sec.')
             if (select_file == "2"):
-                print(formatted_time, "You selected: Option 1")
+                print(formatted_time, "You selected: Option 2")
                 loadingIndicator()
               
                 selectedfile = 'Crime_Data_from_2020_to_2021.csv'
                 start_time = time.time()
                 data_frame = pd.read_csv(selectedfile)
                 end_time = time.time()
+                load_time = end_time - start_time
                 print(formatted_time, 'Total columns read: {}'.format(
                     len(data_frame.columns)))
                 print(formatted_time, 'Total rows read: {}'.format(
@@ -218,20 +219,20 @@ while True:
                 print("\nFile loaded successfully!")
                 print(f'Time to load {load_time:.3f} sec.')
             if (select_file == "3"):
-                print(formatted_time, "You selected: Option 1")
+                print(formatted_time, "You selected: Option 3")
                 loadingIndicator()
-                selectedfile = 'Test.csv'  
+
+                selectedfile = 'Crime_Data_presentation.csv'  
                 start_time = time.time()
                 data_frame = pd.read_csv(selectedfile)
                 end_time = time.time()
+                load_time = end_time - start_time
                 print(formatted_time, 'Total columns read: {}'.format(
                     len(data_frame.columns)))
                 print(formatted_time, 'Total rows read: {}'.format(
                     len(data_frame.index)))
                 print("\nFile loaded successfully!")
                 print(f'Time to load {load_time:.3f} sec.')
-                with open(selectedfile, 'r') as file:  
-                    print(calltest)
 
         elif (select == "2"):
             print("Exploring Data: \n******************")
@@ -586,7 +587,7 @@ while True:
                             f'Show the total unique count of crimes per year sorted in descending order: ')
                     crimes_per_year = data_frame.groupby('year')['Crm Cd'].nunique()
                     crimes_per_year = crimes_per_year.sort_values(ascending = False)
-                    result_df = pd.DataFrame({'year': crimes_per_year.index, 'Total Unique Crimes': crimes_per_year.values})
+                    result_df = pd.DataFrame({'Year': crimes_per_year.index, 'Total Unique Crimes': crimes_per_year.values})
                     print(result_df)
 
                     print(formatted_time, f'Top 5 areas with Most Crime events in all years(sorted by year and number of crime events)')
@@ -708,8 +709,6 @@ while True:
             except Exception as error3:
                 print(f"{type(error3)}: {error3}")
                
-
-
 
         elif (select == "4"):
             try:
