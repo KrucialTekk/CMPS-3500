@@ -464,10 +464,9 @@ while True:
                 elif (select_3 == "3"):
                     
                     print(formatted_time, f'All months and unique count of crimes sorted in increasing order')
-                    count_crimes = data_frame.groupby('DATE OCC')['Crm Cd'].nunique()
-                    count_crimes = count_crimes.sort_values(ascending = True)
-                    count_crimes_result = pd.DataFrame({'Total Unique Crimes': count_crimes})
-                    print(count_crimes_result) 
+                    data_frame['Date Rptd'] = pd.to_datetime(data_frame['Date Rptd'],format = formatted_time2)
+                    count_crimes = data_frame.groupby(data_frame['Date Rptd'].dt.to_period("M"))['Crm Cd'].nunique()
+                    print(count_crimes.sort_values(ascending=True),"\n")
               
                 elif (select_3 == "4"):
                     print(formatted_time, f'Top 10 streets with most crimes in LA in 2019 & total crimes in each street')#unfinished
@@ -594,12 +593,10 @@ while True:
                     most_crimes = data_frame['AREA NAME'].value_counts().head(5)
                     print(most_crimes,"\n")
 
-                    pd.set_option('display.max_rows', 100)
                     print(formatted_time, f'All months and unique count of crimes sorted in increasing order')
-                    count_crimes = data_frame.groupby('DATE OCC')['Crm Cd'].nunique()
-                    count_crimes = count_crimes.sort_values(ascending = True)
-                    count_crimes_result = pd.DataFrame({'Total Unique Crimes': count_crimes})
-                    print(count_crimes_result) 
+                    data_frame['Date Rptd'] = pd.to_datetime(data_frame['Date Rptd'],format = formatted_time2)
+                    count_crimes = data_frame.groupby(data_frame['Date Rptd'].dt.to_period("M"))['Crm Cd'].nunique()
+                    print(count_crimes.sort_values(ascending=True),"\n")
               
                     print(formatted_time, f'Top 10 streets with most crimes in LA in 2019 & total crimes in each street')#unfinished
                     top_streets = data_frame.groupby('LOCATION').size().reset_index(name = 'Crime Count')
