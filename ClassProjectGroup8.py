@@ -434,6 +434,7 @@ while True:
             
             print('Beginning Data Analysis: \n***************************')
             try:
+             #   pd.set_option('display.max_colwidth', None)
                 data_frame['DATE OCC'] = pd.to_datetime(data_frame['DATE OCC'])
                 print(formatted_time,
                         f'Show the total unique count of crimes per year sorted in descending order: ')
@@ -446,10 +447,13 @@ while True:
                 most_crimes = data_frame['AREA NAME'].value_counts().head(5)
                 print(most_crimes,"\n")
 
-                data_frame['Date Rptd'] = pd.to_datetime(data_frame['Date Rptd'],format = formatted_time2)
                 print(formatted_time, f'All months and unique count of crimes sorted in increasing order')
-                count_crimes = data_frame.groupby(data_frame['Date Rptd'].dt.to_period("M")).size()
-                print(count_crimes.sort_values(ascending=True),"\n")
+              #  data_frame['Date Rptd'] = pd.to_datetime(data_frame['Date Rptd'],format = formatted_time2)
+                count_crimes = data_frame.groupby('DATE OCC')['Crm Cd'].nunique()
+                count_crimes = count_crimes.sort_values(ascending = True)
+               # count_crimes_result = pd.DataFrame({'month': count_crimes.index, 'Total Unique Crimes': count_crimes})
+                count_crimes_result = pd.DataFrame({'Total Unique Crimes': count_crimes})
+                print(count_crimes_result) 
 
               
                 print(formatted_time, f'Top 10 streets with most crimes in LA in 2019 & total crimes in each street')#unfinished
@@ -473,6 +477,7 @@ while True:
                 pd.set_option('display.width', 1000)
                 pd.options.display.float_format = "{:.2f}".format
 
+                data_frame['Date Rptd'] = pd.to_datetime(data_frame['Date Rptd'],format = formatted_time2)
                 print(f'{formatted_time}: Details of the crimes that took the longest time to be reported\n')
 
                 # Calculate the time difference between the 'DATE OCC' and 'Date Rptd' columns
@@ -489,9 +494,7 @@ while True:
 
                 # Drop the 'Report Time Difference' column
                 data_frame.drop('Report Time Difference', axis=1, inplace=True)
-               
                 
-
                 
                 print(formatted_time, f'Top 10 most common crime types of all years')
                 top10 = data_frame.groupby('Crm Cd Desc').size().sort_values(ascending=False)
@@ -557,9 +560,6 @@ while True:
                 while i < 5:
                     print(arr[i])
                     i = i + 1
-
-            
-          
               
                 print("\nData Analysis Complete. Returning to Main Menu...")
                
@@ -584,6 +584,6 @@ while True:
             "(1) Load Data\n(2) Exploring Data\n(3) Data Analysis\n(4) Print Data Set\n(5) Quit\n")
     except Exception as err:
         print(f"{type(err)}: {err}")
-   # except KeyboardInterrupt:
-    #    #if user needs ctrl-c, program will just go back to menu
-     #   print("\nData proccesing took too long. Redirecting to previous menu...")
+    except KeyboardInterrupt:
+        #if user needs ctrl-c, program will just go back to menu
+        print("\nData proccesing took too long. Redirecting to previous menu...")
