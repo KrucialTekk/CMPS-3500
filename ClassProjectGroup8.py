@@ -32,24 +32,11 @@ formatted_time2 = "%m/%d/%Y %I:%M:%S %p"
 selectedfile = 'Crime_Data_from_2017_to_2019.csv'
 
 # Function Code Here ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-
-def testFunc(num1, num2):
-    sum = num1 + num2
-    return sum
-
-
-def counter():  
-    return 0
-
-
 def create_array(data, col_name):
     arr = data[col_name].tolist()
     return arr
 
 # drop elements less than or equal to zero
-
-
 def drop_zero(arr):
     new_arr = []
     i = 0
@@ -61,7 +48,6 @@ def drop_zero(arr):
 
 
 # function for counting elements based on user inputted column
-
 def count_elements(data_frame, column_name):
     if data_frame[column_name].dtype == 'object':
         arr = data_frame[column_name].tolist()
@@ -71,8 +57,6 @@ def count_elements(data_frame, column_name):
     return element_count
 
 # unqiue
-
-
 def count_unique_elements(data_frame, column_name):
     if data_frame[column_name].dtype == 'object':
         arr = data_frame[column_name].tolist()
@@ -83,8 +67,6 @@ def count_unique_elements(data_frame, column_name):
     return unique_count
 
 # mean
-
-
 def average(data, col_name):
     arr = create_array(data, col_name)
     arr = drop_zero(arr)
@@ -98,8 +80,6 @@ def average(data, col_name):
     return ave
 
 # mode function or most common
-
-
 def find_mode(data, col_name):
     arr = create_array(data, col_name)
     arr = drop_zero(arr)
@@ -107,8 +87,6 @@ def find_mode(data, col_name):
     return [k for k, v in c.items() if v == c.most_common(1)[0][1]]
 
 # Variance function
-
-
 def variance(data, col_name):
     arr = create_array(data, col_name)
     arr = drop_zero(arr)
@@ -124,16 +102,12 @@ def variance(data, col_name):
     return variance
 
 # Standarad Deviation (SD)
-
-
 def standard_deviation(data, col_name):
     radicand = variance(data, col_name)
     sd = radicand**(1/2)
     return sd
 
 # Min function
-
-
 def minimum(data, col_name):
     arr = create_array(data, col_name)
     arr = drop_zero(arr)
@@ -147,8 +121,6 @@ def minimum(data, col_name):
     return min
 
 # Max function
-
-
 def maximum(data, col_name):
     arr = create_array(data, col_name)
     arr = drop_zero(arr)
@@ -176,7 +148,7 @@ def loadingIndicator():
         loadwait = "Now Loading" + "." * cnt
         cnt = cnt + 1
         print(formatted_time, loadwait, end="\r")
-        time.sleep(0.425)
+        time.sleep(0.25)
     return 0
 
 #(3) Data Analysys
@@ -450,7 +422,7 @@ while True:
 
 
         elif (select == "3"):  # Data analysis called here
-            unique_crimes = ""
+            crimes_per_year = ""
             most_crimes  = ""
             count_crimes = ""
             street_crimes = ""
@@ -462,11 +434,12 @@ while True:
             
             print('Beginning Data Analysis: \n***************************')
             try:
-                data_frame['DATE OCC'] = pd.to_datetime(data_frame['DATE OCC'])
-                unique_crimes = data_frame['DATE OCC'].dt.year.value_counts().sort_index(ascending=False)
                 print(formatted_time,
                         f'Show the total unique count of crimes per year sorted in descending order: ')
-                print(unique_crimes,"\n")
+                crimes_per_year = data_frame.groupby('year')['Crm Cd'].nunique()
+                crimes_per_year = crimes_per_year.sort_values(ascending = False)
+                result_df = pd.DataFrame({'year': crimes_per_year.index, 'Total Unique Crimes': crimes_per_year.values})
+                print(result_df)
 
                 print(formatted_time, f'Top 5 areas with Most Crime events in all years(sorted by year and number of crime events)')
                 most_crimes = data_frame['AREA NAME'].value_counts().head(5)
@@ -583,6 +556,12 @@ while True:
                 while i < 5:
                     print(arr[i])
                     i = i + 1
+
+              #  crimes_by_year(selectedfile)
+                crimes_per_year = data_frame.groupby('year')['Crm Cd'].nunique()
+                crimes_per_year = crimes_per_year.sort_values(ascending = False)
+                result_df = pd.DataFrame({'year': crimes_per_year.index, 'Total Unique Crimes': crimes_per_year.values})
+                print(result_df)
           
               
                 print("\nData Analysis Complete. Returning to Main Menu...")
@@ -608,6 +587,6 @@ while True:
             "(1) Load Data\n(2) Exploring Data\n(3) Data Analysis\n(4) Print Data Set\n(5) Quit\n")
     except Exception as err:
         print(f"{type(err)}: {err}")
-    except KeyboardInterrupt:
-        #if user needs ctrl-c, program will just go back to menu
-        print("\nData proccesing took too long. Redirecting to previous menu...")
+   # except KeyboardInterrupt:
+    #    #if user needs ctrl-c, program will just go back to menu
+     #   print("\nData proccesing took too long. Redirecting to previous menu...")
