@@ -421,7 +421,7 @@ while True:
                 
 
 
-        elif (select == "3"):  # Data analysis called here
+        elif (select == "3"):
             crimes_per_year = ""
             most_crimes  = ""
             count_crimes = ""
@@ -432,136 +432,278 @@ while True:
             gender_victim_analysis = ""
 
             
-            print('Beginning Data Analysis: \n***************************')
+            print('Data Analysis: \n*****************')
             try:
-             #   pd.set_option('display.max_colwidth', None)
-                data_frame['DATE OCC'] = pd.to_datetime(data_frame['DATE OCC'])
-                print(formatted_time,
-                        f'Show the total unique count of crimes per year sorted in descending order: ')
-                crimes_per_year = data_frame.groupby('year')['Crm Cd'].nunique()
-                crimes_per_year = crimes_per_year.sort_values(ascending = False)
-                result_df = pd.DataFrame({'year': crimes_per_year.index, 'Total Unique Crimes': crimes_per_year.values})
-                print(result_df)
 
-                print(formatted_time, f'Top 5 areas with Most Crime events in all years(sorted by year and number of crime events)')
-                most_crimes = data_frame['AREA NAME'].value_counts().head(5)
-                print(most_crimes,"\n")
+                print("Exploring Data: \n******************")
+                select_3 = input("(1) Top 5 Areas\n" + 
+                        "(2) Top 5 areas with mos crimes in LA 2019\n" +
+                        "(3) All months and unique count of crimes\n" +
+                        "(4) Top 10 streets with most crimes in LA 2019\n" +
+                        "(5) Top 5 most dangerous times in Hollywood\n" +
+                        "(6) Details of the longest reported crime\n" + 
+                        "(7) Top 10 crime types\n" +
+                        "(8) Are men or women more likely to be victems of crime in La between lun time?\n" +
+                        "(9) Month with most credit card frauds\n" + 
+                        "(10) Top 5 most dangerous aread for men 65+\n" +
+                        "(11) Answer ALL Data Questions\n")
+                if (select_3 == "1"):
+                    data_frame['DATE OCC'] = pd.to_datetime(data_frame['DATE OCC'])
+                    print(formatted_time,
+                            f'Show the total unique count of crimes per year sorted in descending order: ')
+                    crimes_per_year = data_frame.groupby('year')['Crm Cd'].nunique()
+                    crimes_per_year = crimes_per_year.sort_values(ascending = False)
+                    result_df = pd.DataFrame({'year': crimes_per_year.index, 'Total Unique Crimes': crimes_per_year.values})
+                    print(result_df)
 
-                print(formatted_time, f'All months and unique count of crimes sorted in increasing order')
-              #  data_frame['Date Rptd'] = pd.to_datetime(data_frame['Date Rptd'],format = formatted_time2)
-                count_crimes = data_frame.groupby('DATE OCC')['Crm Cd'].nunique()
-                count_crimes = count_crimes.sort_values(ascending = True)
-               # count_crimes_result = pd.DataFrame({'month': count_crimes.index, 'Total Unique Crimes': count_crimes})
-                count_crimes_result = pd.DataFrame({'Total Unique Crimes': count_crimes})
-                print(count_crimes_result) 
+                elif (select_3 == "2"):
+                    print(formatted_time, f'Top 5 areas with Most Crime events in all years(sorted by year and number of crime events)')
+                    most_crimes = data_frame['AREA NAME'].value_counts().head(5)
+                    print(most_crimes,"\n")
 
+                elif (select_3 == "3"):
+                    print(formatted_time, f'All months and unique count of crimes sorted in increasing order')
+                    count_crimes = data_frame.groupby('DATE OCC')['Crm Cd'].nunique()
+                    count_crimes = count_crimes.sort_values(ascending = True)
+                    count_crimes_result = pd.DataFrame({'Total Unique Crimes': count_crimes})
+                    print(count_crimes_result) 
               
-                print(formatted_time, f'Top 10 streets with most crimes in LA in 2019 & total crimes in each street')#unfinished
-                top_streets = data_frame.groupby('LOCATION').size().reset_index(name = 'Crime Count')
-                street_crimes = top_streets.head(10).sort_values('Crime Count', ascending=False)
-                print(street_crimes,"\n") 
+                elif (select_3 == "4"):
+                    print(formatted_time, f'Top 10 streets with most crimes in LA in 2019 & total crimes in each street')#unfinished
+                    top_streets = data_frame.groupby('LOCATION').size().reset_index(name = 'Crime Count')
+                    street_crimes = top_streets.head(10).sort_values('Crime Count', ascending=False)
+                    print(street_crimes,"\n") 
 
                 
-                print(formatted_time, f'Top 5 most dangerous hours in Hollywood (and crimes per hour)\n')
-                print("Times are listed in military time.")
-                hollywood_crimes = data_frame[data_frame['AREA NAME'] == 'Hollywood']
-                hourly_crimes = hollywood_crimes.groupby(hollywood_crimes['TIME OCC'].apply(lambda x: int(str(x).zfill(4)[:2]))).size().sort_values(ascending=False)
-                dangerous_hours = hourly_crimes.head(5)
+                elif (select_3 == "5"):
+                    print(formatted_time, f'Top 5 most dangerous hours in Hollywood (and crimes per hour)\n')
+                    print("Times are listed in military time.")
+                    hollywood_crimes = data_frame[data_frame['AREA NAME'] == 'Hollywood']
+                    hourly_crimes = hollywood_crimes.groupby(hollywood_crimes['TIME OCC'].apply(lambda x: int(str(x).zfill(4)[:2]))).size().sort_values(ascending=False)
+                    dangerous_hours = hourly_crimes.head(5)
 
-                # Convert output to string and remove the dtype line
-                dangerous_hours_str = '\n'.join([line for line in str(dangerous_hours).split('\n') if 'dtype' not in line])
-                print(dangerous_hours_str, "\n")
+                    # Convert output to string and remove the dtype line
+                    dangerous_hours_str = '\n'.join([line for line in str(dangerous_hours).split('\n') if 'dtype' not in line])
+                    print(dangerous_hours_str, "\n")
 
-                pd.set_option('display.max_rows', 10)
-                pd.set_option('display.max_columns', 10)
-                pd.set_option('display.width', 1000)
-                pd.options.display.float_format = "{:.2f}".format
+                elif (select_3 == "6"):
+                    data_frame['DATE OCC'] = pd.to_datetime(data_frame['DATE OCC'])
+                    pd.set_option('display.max_rows', 10)
+                    pd.set_option('display.max_columns', 10)
+                    pd.set_option('display.width', 1000)
+                    pd.options.display.float_format = "{:.2f}".format
 
-                data_frame['Date Rptd'] = pd.to_datetime(data_frame['Date Rptd'],format = formatted_time2)
-                print(f'{formatted_time}: Details of the crimes that took the longest time to be reported\n')
+                    print(f'{formatted_time}: Details of the crimes that took the longest time to be reported\n')
+                    data_frame['Date Rptd'] = pd.to_datetime(data_frame['Date Rptd'],format = formatted_time2)
 
-                # Calculate the time difference between the 'DATE OCC' and 'Date Rptd' columns
-                data_frame['Report Time Difference'] = (data_frame['Date Rptd'] - data_frame['DATE OCC']).dt.days
+                    # Calculate the time difference between the 'DATE OCC' and 'Date Rptd' columns
+                    data_frame['Report Time Difference'] = (data_frame['Date Rptd'] - data_frame['DATE OCC']).dt.days
 
-                # Find the maximum time difference
-                max_time_diff = data_frame['Report Time Difference'].max()
+                    # Find the maximum time difference
+                    max_time_diff = data_frame['Report Time Difference'].max()
 
-                # Get the details of all crimes with the longest time to be reported
-                longest_reported_crimes = data_frame[data_frame['Report Time Difference'] == max_time_diff]
+                    # Get the details of all crimes with the longest time to be reported
+                    longest_reported_crimes = data_frame[data_frame['Report Time Difference'] == max_time_diff]
+                    print(longest_reported_crimes)
 
-                # Print the DataFrame in a more readable format
-                print(longest_reported_crimes)
-
-                # Drop the 'Report Time Difference' column
-                data_frame.drop('Report Time Difference', axis=1, inplace=True)
+                    # Drop the 'Report Time Difference' column
+                    data_frame.drop('Report Time Difference', axis=1, inplace=True)
                 
                 
-                print(formatted_time, f'Top 10 most common crime types of all years')
-                top10 = data_frame.groupby('Crm Cd Desc').size().sort_values(ascending=False)
-                common_crimes = top10.head(10)
-                print(common_crimes,"\n")
+                elif (select_3 == "7"):
+                    print(formatted_time, f'Top 10 most common crime types of all years')
+                    top10 = data_frame.groupby('Crm Cd Desc').size().sort_values(ascending=False)
+                    common_crimes = top10.head(10)
+                    print(common_crimes,"\n")
 
                 
-                print(formatted_time, f'Are women or men more likely to be a victim in LA between 11:00am to 1:00pm?')
-                time_filtered_data = data_frame[(data_frame['TIME OCC'].apply(lambda x: int(str(x).zfill(4)[:2])) >= 11) & (data_frame['TIME OCC'].apply(lambda x: int(str(x).zfill(4)[:2])) < 13)]
+                elif (select_3 == "8"):
+                    print(formatted_time, f'Are women or men more likely to be a victim in LA between 11:00am to 1:00pm?')
+                    time_filtered_data = data_frame[(data_frame['TIME OCC'].apply(lambda x: int(str(x).zfill(4)[:2])) >= 11) & (data_frame['TIME OCC'].apply(lambda x: int(str(x).zfill(4)[:2])) < 13)]
 
-                # Count the number of male and female victims
-                male_victims = time_filtered_data[time_filtered_data['Vict Sex'] == 'M'].shape[0]
-                female_victims = time_filtered_data[time_filtered_data['Vict Sex'] == 'F'].shape[0]
+                    # Count the number of male and female victims
+                    male_victims = time_filtered_data[time_filtered_data['Vict Sex'] == 'M'].shape[0]
+                    female_victims = time_filtered_data[time_filtered_data['Vict Sex'] == 'F'].shape[0]
 
-                # Compare the number of male and female victims
-                if male_victims > female_victims:
-                    gender_victim_analysis = "Men are more likely to be a victim in LA between 11:00am and 1:00pm."
-                elif male_victims < female_victims:
-                    gender_victim_analysis = "Women are more likely to be a victim in LA between 11:00am and 1:00pm."
+                    # Compare the number of male and female victims
+                    if male_victims > female_victims:
+                        gender_victim_analysis = "Men are more likely to be a victim in LA between 11:00am and 1:00pm."
+                    elif male_victims < female_victims:
+                        gender_victim_analysis = "Women are more likely to be a victim in LA between 11:00am and 1:00pm."
+                    else:
+                        gender_victim_analysis = "Men and women are equally likely to be a victim in LA between 11:00am and 1:00pm."
+                
+                    print(gender_victim_analysis, "\n")
+                
+                elif (select_3 == "9"):
+                    print(formatted_time,
+                        f'Month with most credit card frauds in LA in 2019: ')
+                    df = pd.read_csv(selectedfile)
+                    df['Date Rptd'] = df['Date Rptd'].str.extract(
+                        r'(\d+\/\d+\/\d+)', expand=False)
+                    df['DATE OCC'] = df['DATE OCC'].str.extract(
+                        r'(\d+)', expand=False)
+                    months = ["January", "February", "March", "April", "May", "June",
+                            "July", "August", "September", "October", "November", "December"]
+
+                    df.columns = [column.replace(" ", "_")
+                                for column in df.columns]
+                    most_fraud = df.query(
+                        'Crm_Cd_Desc == "CREDIT CARDS, FRAUD USE ($950 & UNDER" and year == 2019')
+                    fraudz = most_fraud.groupby(['DATE_OCC'])[
+                        'DATE_OCC'].count().reset_index(name="count")
+                    fraudz = fraudz.sort_values(by="count", ascending=False)
+                    arr = fraudz['DATE_OCC'].tolist()
+                    index = int(arr[0]) - 1
+                    highest_fraud = months[index]
+                    print(highest_fraud, "\n")
+                
+                elif (select_3 == "10"):
+                    #Most dangerous areas for men 65 or older
+                    print(formatted_time, f'Top 5 most dangerous areas for older men (age from 65+) in december of 2018.')
+                    df = pd.read_csv(selectedfile)
+                    df.columns = [column.replace(" ", "_")
+                                for column in df.columns]
+                    df['Date_Rptd'] = df['Date_Rptd'].str.extract(
+                        r'(\d+)', expand=False)
+
+                    oldies = df.query(
+                        'Vict_Age >= 65 and year == 2018 and Vict_Sex == "M" and Date_Rptd == "12"')
+                    oldies = oldies.groupby(['AREA_NAME'])[
+                        'AREA_NAME'].count().reset_index(name="count")
+                    oldies = oldies.sort_values(by="count", ascending=False)
+                    arr = oldies['AREA_NAME'].tolist()
+                    i = 0
+                    while i < 5:
+                        print(arr[i])
+                        i = i + 1
+              
+                    print("\nData Analysis Complete. Returning to Main Menu...")
+                elif (select_3 == "11"):
+                    data_frame['DATE OCC'] = pd.to_datetime(data_frame['DATE OCC'])
+                    print(formatted_time,
+                            f'Show the total unique count of crimes per year sorted in descending order: ')
+                    crimes_per_year = data_frame.groupby('year')['Crm Cd'].nunique()
+                    crimes_per_year = crimes_per_year.sort_values(ascending = False)
+                    result_df = pd.DataFrame({'year': crimes_per_year.index, 'Total Unique Crimes': crimes_per_year.values})
+                    print(result_df)
+
+                    print(formatted_time, f'Top 5 areas with Most Crime events in all years(sorted by year and number of crime events)')
+                    most_crimes = data_frame['AREA NAME'].value_counts().head(5)
+                    print(most_crimes,"\n")
+
+                    print(formatted_time, f'All months and unique count of crimes sorted in increasing order')
+                    count_crimes = data_frame.groupby('DATE OCC')['Crm Cd'].nunique()
+                    count_crimes = count_crimes.sort_values(ascending = True)
+                    count_crimes_result = pd.DataFrame({'Total Unique Crimes': count_crimes})
+                    print(count_crimes_result) 
+              
+                    print(formatted_time, f'Top 10 streets with most crimes in LA in 2019 & total crimes in each street')#unfinished
+                    top_streets = data_frame.groupby('LOCATION').size().reset_index(name = 'Crime Count')
+                    street_crimes = top_streets.head(10).sort_values('Crime Count', ascending=False)
+                    print(street_crimes,"\n") 
+
+                
+                    print(formatted_time, f'Top 5 most dangerous hours in Hollywood (and crimes per hour)\n')
+                    print("Times are listed in military time.")
+                    hollywood_crimes = data_frame[data_frame['AREA NAME'] == 'Hollywood']
+                    hourly_crimes = hollywood_crimes.groupby(hollywood_crimes['TIME OCC'].apply(lambda x: int(str(x).zfill(4)[:2]))).size().sort_values(ascending=False)
+                    dangerous_hours = hourly_crimes.head(5)
+
+                    # Convert output to string and remove the dtype line
+                    dangerous_hours_str = '\n'.join([line for line in str(dangerous_hours).split('\n') if 'dtype' not in line])
+                    print(dangerous_hours_str, "\n")
+
+                    pd.set_option('display.max_rows', 10)
+                    pd.set_option('display.max_columns', 10)
+                    pd.set_option('display.width', 1000)
+                    pd.options.display.float_format = "{:.2f}".format
+
+                    data_frame['Date Rptd'] = pd.to_datetime(data_frame['Date Rptd'],format = formatted_time2)
+                    print(f'{formatted_time}: Details of the crimes that took the longest time to be reported\n')
+
+                    # Calculate the time difference between the 'DATE OCC' and 'Date Rptd' columns
+                    data_frame['Report Time Difference'] = (data_frame['Date Rptd'] - data_frame['DATE OCC']).dt.days
+
+                    # Find the maximum time difference
+                    max_time_diff = data_frame['Report Time Difference'].max()
+
+                    # Get the details of all crimes with the longest time to be reported
+                    longest_reported_crimes = data_frame[data_frame['Report Time Difference'] == max_time_diff]
+
+                    # Print the DataFrame in a more readable format
+                    print(longest_reported_crimes)
+
+                    # Drop the 'Report Time Difference' column
+                    data_frame.drop('Report Time Difference', axis=1, inplace=True)
+                
+                
+                    print(formatted_time, f'Top 10 most common crime types of all years')
+                    top10 = data_frame.groupby('Crm Cd Desc').size().sort_values(ascending=False)
+                    common_crimes = top10.head(10)
+                    print(common_crimes,"\n")
+
+                    print(formatted_time, f'Are women or men more likely to be a victim in LA between 11:00am to 1:00pm?')
+                    time_filtered_data = data_frame[(data_frame['TIME OCC'].apply(lambda x: int(str(x).zfill(4)[:2])) >= 11) & (data_frame['TIME OCC'].apply(lambda x: int(str(x).zfill(4)[:2])) < 13)]
+
+                    # Count the number of male and female victims
+                    male_victims = time_filtered_data[time_filtered_data['Vict Sex'] == 'M'].shape[0]
+                    female_victims = time_filtered_data[time_filtered_data['Vict Sex'] == 'F'].shape[0]
+
+                    # Compare the number of male and female victims
+                    if male_victims > female_victims:
+                        gender_victim_analysis = "Men are more likely to be a victim in LA between 11:00am and 1:00pm."
+                    elif male_victims < female_victims:
+                        gender_victim_analysis = "Women are more likely to be a victim in LA between 11:00am and 1:00pm."
+                    else:
+                        gender_victim_analysis = "Men and women are equally likely to be a victim in LA between 11:00am and 1:00pm."
+                
+                    print(gender_victim_analysis, "\n")
+                
+                    # Month with most credit card frauds in 2019
+                    print(formatted_time,
+                        f'Month with most credit card frauds in LA in 2019: ')
+                    df = pd.read_csv(selectedfile)
+                    df['Date Rptd'] = df['Date Rptd'].str.extract(
+                        r'(\d+\/\d+\/\d+)', expand=False)
+                    df['DATE OCC'] = df['DATE OCC'].str.extract(
+                        r'(\d+)', expand=False)
+                    months = ["January", "February", "March", "April", "May", "June",
+                              "July", "August", "September", "October", "November", "December"]
+
+                    df.columns = [column.replace(" ", "_")
+                                for column in df.columns]
+                    most_fraud = df.query(
+                        'Crm_Cd_Desc == "CREDIT CARDS, FRAUD USE ($950 & UNDER" and year == 2019')
+                    fraudz = most_fraud.groupby(['DATE_OCC'])[
+                        'DATE_OCC'].count().reset_index(name="count")
+                    fraudz = fraudz.sort_values(by="count", ascending=False)
+                    arr = fraudz['DATE_OCC'].tolist()
+                    index = int(arr[0]) - 1
+                    highest_fraud = months[index]
+                    print(highest_fraud, "\n")
+                
+                    #Most dangerous areas for men 65 or older
+                    print(formatted_time, f'Top 5 most dangerous areas for older men (age from 65+) in december of 2018.')
+                    df = pd.read_csv(selectedfile)
+                    df.columns = [column.replace(" ", "_")
+                                  for column in df.columns]
+                    df['Date_Rptd'] = df['Date_Rptd'].str.extract(
+                        r'(\d+)', expand=False)
+
+                    oldies = df.query(
+                        'Vict_Age >= 65 and year == 2018 and Vict_Sex == "M" and Date_Rptd == "12"')
+                    oldies = oldies.groupby(['AREA_NAME'])[
+                        'AREA_NAME'].count().reset_index(name="count")
+                    oldies = oldies.sort_values(by="count", ascending=False)
+                    arr = oldies['AREA_NAME'].tolist()
+                    i = 0
+                    while i < 5:
+                        print(arr[i])
+                        i = i + 1
+
                 else:
-                    gender_victim_analysis = "Men and women are equally likely to be a victim in LA between 11:00am and 1:00pm."
-                
-                print(gender_victim_analysis, "\n")
-                
-                # Month with most credit card frauds in 2019
-                print(formatted_time,
-                      f'Month with most credit card frauds in LA in 2019: ')
-                df = pd.read_csv(selectedfile)
-                df['Date Rptd'] = df['Date Rptd'].str.extract(
-                    r'(\d+\/\d+\/\d+)', expand=False)
-                df['DATE OCC'] = df['DATE OCC'].str.extract(
-                    r'(\d+)', expand=False)
-                months = ["January", "February", "March", "April", "May", "June",
-                          "July", "August", "September", "October", "November", "December"]
-
-                df.columns = [column.replace(" ", "_")
-                              for column in df.columns]
-                most_fraud = df.query(
-                    'Crm_Cd_Desc == "CREDIT CARDS, FRAUD USE ($950 & UNDER" and year == 2019')
-                fraudz = most_fraud.groupby(['DATE_OCC'])[
-                    'DATE_OCC'].count().reset_index(name="count")
-                fraudz = fraudz.sort_values(by="count", ascending=False)
-                arr = fraudz['DATE_OCC'].tolist()
-                index = int(arr[0]) - 1
-                highest_fraud = months[index]
-                print(highest_fraud, "\n")
-                
-                #Most dangerous areas for men 65 or older
-                print(formatted_time, f'Top 5 most dangerous areas for older men (age from 65+) in december of 2018.')
-                df = pd.read_csv(selectedfile)
-                df.columns = [column.replace(" ", "_")
-                              for column in df.columns]
-                df['Date_Rptd'] = df['Date_Rptd'].str.extract(
-                    r'(\d+)', expand=False)
-
-                oldies = df.query(
-                    'Vict_Age >= 65 and year == 2018 and Vict_Sex == "M" and Date_Rptd == "12"')
-                oldies = oldies.groupby(['AREA_NAME'])[
-                    'AREA_NAME'].count().reset_index(name="count")
-                oldies = oldies.sort_values(by="count", ascending=False)
-                arr = oldies['AREA_NAME'].tolist()
-                i = 0
-                while i < 5:
-                    print(arr[i])
-                    i = i + 1
-              
-                print("\nData Analysis Complete. Returning to Main Menu...")
+                    print("Invalid Selection")
                
             except Exception as error3:
                 print(f"{type(error3)}: {error3}")
