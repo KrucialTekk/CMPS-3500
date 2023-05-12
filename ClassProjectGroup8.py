@@ -704,7 +704,7 @@ while True:
 
                 else:
                     print("Invalid Selection")
-               
+                print("\nData Analysis Complete. Returning to Main Menu...")
             except Exception as error3:
                 print(f"{type(error3)}: {error3}")
                
