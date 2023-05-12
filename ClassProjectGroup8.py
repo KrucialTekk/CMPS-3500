@@ -581,7 +581,8 @@ while True:
               
                    
                 elif (select_3 == "11"):
-                    data_frame['DATE OCC'] = pd.to_datetime(data_frame['DATE OCC'])
+                    data_frame['DATE OCC'] = pd.to_datetime(data_frame['DATE OCC'], format = formatted_time2)
+                    data_frame['year'] = data_frame['DATE OCC'].dt.year  # add this line to create 'year' column
                     print(formatted_time,
                             f'Show the total unique count of crimes per year sorted in descending order: ')
                     crimes_per_year = data_frame.groupby('year')['Crm Cd'].nunique()
