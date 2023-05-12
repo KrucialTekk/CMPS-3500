@@ -434,6 +434,7 @@ while True:
             
             print('Beginning Data Analysis: \n***************************')
             try:
+                data_frame['DATE OCC'] = pd.to_datetime(data_frame['DATE OCC'])
                 print(formatted_time,
                         f'Show the total unique count of crimes per year sorted in descending order: ')
                 crimes_per_year = data_frame.groupby('year')['Crm Cd'].nunique()
@@ -557,11 +558,7 @@ while True:
                     print(arr[i])
                     i = i + 1
 
-              #  crimes_by_year(selectedfile)
-                crimes_per_year = data_frame.groupby('year')['Crm Cd'].nunique()
-                crimes_per_year = crimes_per_year.sort_values(ascending = False)
-                result_df = pd.DataFrame({'year': crimes_per_year.index, 'Total Unique Crimes': crimes_per_year.values})
-                print(result_df)
+            
           
               
                 print("\nData Analysis Complete. Returning to Main Menu...")
