@@ -578,7 +578,7 @@ while True:
                         print(arr[i])
                         i = i + 1
               
-                    print("\nData Analysis Complete. Returning to Main Menu...")
+                   
                 elif (select_3 == "11"):
                     data_frame['DATE OCC'] = pd.to_datetime(data_frame['DATE OCC'])
                     print(formatted_time,
