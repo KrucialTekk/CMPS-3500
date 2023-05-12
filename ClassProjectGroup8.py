@@ -219,10 +219,10 @@ while True:
             if (select_file == "1"):
                 print(formatted_time, "You selected: Option 1")
                 loadingIndicator()
-              
                 selectedfile = 'Crime_Data_from_2017_to_2019.csv'
                 start_time = time.time()
                 data_frame = pd.read_csv(selectedfile)
+                data_frame = data_frame.drop(['Crm Cd 2', 'Crm Cd 3', 'Crm Cd 4', 'Cross Street'],  axis='columns')
                 end_time = time.time()
                 load_time = end_time - start_time
                 print(formatted_time, 'Total columns read: {}'.format(
@@ -267,9 +267,7 @@ while True:
             if (select_2 == "21"):
                 print('(21) List all columns: \n******************')
                 with open('Crime_Data_from_2017_to_2019.csv', 'r') as file:  
-                    reader = csv.reader(file)  
-                    columns = next(reader) 
-                    for i, column in enumerate(columns):
+                    for i, column in enumerate(data_frame.columns):
                         # print the index of the columns
                         print(f"[{1+i}] <{column} >")
 
