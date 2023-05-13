@@ -7,6 +7,7 @@
 # description: Implementation Basic Data Analysis Routines
 # To compile and run python from odin, type 'python3 ClassProjectGroup8.py' or './ClassProjectGroup8.py'
 
+#importing necessary libraries
 import pandas as pd  # library to search, sort, parse the csv file
 import datetime
 import numpy
@@ -86,7 +87,7 @@ def find_mode(data, col_name):
     c = Counter(arr)
     return [k for k, v in c.items() if v == c.most_common(1)[0][1]]
 
-# Variance function
+# Variance function for stats
 def variance(data, col_name):
     arr = create_array(data, col_name)
     arr = drop_zero(arr)
@@ -101,13 +102,13 @@ def variance(data, col_name):
     variance = (summation/pop_size)
     return variance
 
-# Standarad Deviation (SD)
+# Standarad Deviation (SD) for stats
 def standard_deviation(data, col_name):
     radicand = variance(data, col_name)
     sd = radicand**(1/2)
     return sd
 
-# Min function
+# Min function for stats
 def minimum(data, col_name):
     arr = create_array(data, col_name)
     arr = drop_zero(arr)
@@ -120,7 +121,7 @@ def minimum(data, col_name):
         i += 1
     return min
 
-# Max function
+# Max function for stats
 def maximum(data, col_name):
     arr = create_array(data, col_name)
     arr = drop_zero(arr)
@@ -133,7 +134,7 @@ def maximum(data, col_name):
         i += 1
     return maximum
 
-
+# mean function that uses high and low to dtermine median
 def find_median(data, column_name):
     # mean function or middle: High + low / 2 = middle
     low = minimum(data, column_name)
@@ -141,7 +142,7 @@ def find_median(data, column_name):
     median = (high + low) / 2
     return median
 
-
+# prints a loading indicator for style 
 def loadingIndicator():
     cnt = 0
     while cnt < 4:
@@ -151,7 +152,7 @@ def loadingIndicator():
         time.sleep(0.25)
     return 0
 
-#(3) Data Analysys
+# function to calculate the number of crimes by year
 def crimes_by_year(file_path):
 
     df = pd.read_csv(file_path)
@@ -167,7 +168,7 @@ def crimes_by_year(file_path):
 
 # Main Menu++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-
+#prints the main menu that displays everything the user can do regarding the imported dataset
 print("Main Menu:\n*********")
 select = input(
     "(1) Load Data\n(2) Exploring Data\n(3) Data Analysis\n(4) Print Data Set\n(5) Quit\n")
@@ -176,10 +177,13 @@ while select.isnumeric() != 1:
     select = input(
         "(1) Load Data\n(2) Exploring Data\n(3) Data Analysis\n(4) Print Data Set\n(5) Quit\n")
 
+# general try catch statement that prevenst crashing
 while True:
     try:
         pd.set_option('display.max_columns', 30)
         pd.set_option('display.max_rows', 9999999)
+        
+        #if option 1 is selected, the user will have a menu appear, which will have them choose which file to load in the dataframe
         if (select == "1"):
            
             print("Load data set:\n**************")
@@ -188,6 +192,8 @@ while True:
           
             select_file = input(
                 "Please select a file: \n[1] Crime_Data_from_2017_to_2019.csv\n[2] Crime_Data_from_2020_to_2021.csv\n[3] Crime_Data_presentation.csv\n")
+            
+            #if option 1 is selected, then the Crime Data file from 2017 to 2019 will be loaded in the dataframe
             if (select_file == "1"):
                 print(formatted_time, "You selected: Option 1")
                 loadingIndicator()
@@ -203,10 +209,11 @@ while True:
                     len(data_frame.index)))
                 print("\nFile loaded successfully!")
                 print(f'Time to load {load_time:.3f} sec.')
+                
+                #if option 2 is selected, then the Crime Data file from 2020-2021 will be loaded in the data frame
             if (select_file == "2"):
                 print(formatted_time, "You selected: Option 2")
                 loadingIndicator()
-              
                 selectedfile = 'Crime_Data_from_2020_to_2021.csv'
                 start_time = time.time()
                 data_frame = pd.read_csv(selectedfile)
@@ -218,10 +225,11 @@ while True:
                     len(data_frame.index)))
                 print("\nFile loaded successfully!")
                 print(f'Time to load {load_time:.3f} sec.')
+                
+             #if option 3 is selected, then the Crime_Data_presentation file will be loaded into the dataframe   
             if (select_file == "3"):
                 print(formatted_time, "You selected: Option 3")
                 loadingIndicator()
-
                 selectedfile = 'Crime_Data_presentation.csv'  
                 start_time = time.time()
                 data_frame = pd.read_csv(selectedfile)
@@ -234,6 +242,7 @@ while True:
                 print("\nFile loaded successfully!")
                 print(f'Time to load {load_time:.3f} sec.')
 
+        #if option 2 is selected, a menu will print out, letting the user know what they can explore in regards to the data
         elif (select == "2"):
             print("Exploring Data: \n******************")
             select_2 = input("(21) List all columns\n(22) Drop Columns\n(23) Describe Columns\n(24) Search Element in Column\n(25) Sort in Ascending/Descending Order \n(26) Select Columns to Display\n(27) Back to Main Menu\n")
@@ -244,6 +253,7 @@ while True:
                         # print the index of the columns
                         print(f"[{1+i}] <{column} >")
 
+            #if option 22 is selected, then the user will be prompted to choose a colum to drop from the data frame
             if (select_2 == "22"):
                 print('(22) Drop Columns: \n******************')
                 print('List of Columns:')
@@ -258,6 +268,7 @@ while True:
                 print(formatted_time, f' {[drop_input]}')
                 print(formatted_time, f' Column {[drop_input]} dropped!')
 
+            # if option 23 is chosen, the user will choose a column to describe with stat functions
             if (select_2 == "23"):
                 print('(23) Describe Columns: \n******************')
                 print(formatted_time, 'Select column number to Describe:\n')
@@ -271,7 +282,8 @@ while True:
                 # array of column names
                 cols = data_frame.columns
                 col_name = cols[column_index]
-                # Call the count_elements_in_selected_column function to count the elements in the selected column
+                # try except statements below for each of the stat functions
+                # these ensure that the stat functions will only return valid outputs if the data is an int, double, or float
                 
 
                 print([formatted_time], selected_column)
@@ -330,7 +342,7 @@ while True:
 
                 print(
                     f"Stats printed successfully! time to process is {load_time:.3f} sec.")
-
+            # if option 24 is selected, the user will be prompted to search for an chosen element in a chosen column
             if (select_2 == "24"):
                 print('(24) Search Element in Column: \n******************')
                 print(formatted_time, 'Select column number to perform a search:')
@@ -374,6 +386,7 @@ while True:
                 else:
                     print("Element not found: Heading back to Main Menu\n")
 
+            # if option 25 is chosen, the user will then be prompted to choose a column to search
             if (select_2 == "25"):
                 try:
                     print(formatted_time, 'Select column number to perform a search:')
@@ -390,8 +403,10 @@ while True:
                         for i, column in enumerate(data_frame.columns):
                             # print the index of the columns
                             print(f"[{1+i}] <{column} >")
+                            #prompts the user for the element they would like to find in the column
                         selectCol = int(input(""))
                     print(formatted_time, "You selected column: ", selectCol)
+                    #pormpts the user to either arrange the return data in ascending or descending order
                     print(formatted_time, "Do you want to sort in Acending or Decending order?")
                     print(formatted_time, "Type A or D.")
                     sort_input = input("")
@@ -404,7 +419,7 @@ while True:
                 except Exception as err25:
                     print(f"{type(err25)}: {err25}")
 
-
+            # if option 26 is selected, the user will be prompted to choose how many rows of the dataset they would like to see
             if (select_2 == "26"):
                 displayinput = int(input("Do you want to display [100], [1000], or [5000] rows of the dataset?\n"))
                 try:
@@ -421,7 +436,7 @@ while True:
                 print('(27)Back to Main Menu: \n******************')
                 
 
-
+        #if option 3 is selected, the user is wanting to perform data analysis
         elif (select == "3"):
             crimes_per_year = ""
             most_crimes  = ""
@@ -435,7 +450,7 @@ while True:
             
             print('Data Analysis: \n*****************')
             try:
-
+                # prints a menu to let the user choose which analysis questions to provide answers to
                 print("Exploring Data: \n******************")
                 select_3 = input("(1) Total unique count of crimes per year\n" + 
                         "(2) Top 5 areas with most crimes in LA 2019\n" +
@@ -448,6 +463,8 @@ while True:
                         "(9) Month with most credit card frauds\n" + 
                         "(10) Top 5 most dangerous aread for men 65+\n" +
                         "(11) Answer ALL Data Questions\n")
+                
+                #only prints analysis question 1
                 if (select_3 == "1"):
                     data_frame['DATE OCC'] = pd.to_datetime(data_frame['DATE OCC'])
                     print(formatted_time,
@@ -456,12 +473,14 @@ while True:
                     crimes_per_year = crimes_per_year.sort_values(ascending = False)
                     result_df = pd.DataFrame({'year': crimes_per_year.index, 'Total Unique Crimes': crimes_per_year.values})
                     print(result_df)
-
+                    
+                #only prints analysis question 2
                 elif (select_3 == "2"):
                     print(formatted_time, f'Top 5 areas with Most Crime events in all years(sorted by year and number of crime events)')
                     most_crimes = data_frame['AREA NAME'].value_counts().head(5)
                     print(most_crimes,"\n")
 
+                #only prints analysis question 3
                 elif (select_3 == "3"):
                     
                     print(formatted_time, f'All months and unique count of crimes sorted in increasing order')
@@ -469,13 +488,14 @@ while True:
                     count_crimes = data_frame.groupby(data_frame['Date Rptd'].dt.to_period("M"))['Crm Cd'].nunique()
                     print(count_crimes.sort_values(ascending=True),"\n")
               
+                #only prints analysis question 4
                 elif (select_3 == "4"):
                     print(formatted_time, f'Top 10 streets with most crimes in LA in 2019 & total crimes in each street')#unfinished
                     top_streets = data_frame.groupby('LOCATION').size().reset_index(name = 'Crime Count')
                     street_crimes = top_streets.head(10).sort_values('Crime Count', ascending=False)
                     print(street_crimes,"\n") 
 
-                
+                #only prints analysis question 5
                 elif (select_3 == "5"):
                     print(formatted_time, f'Top 5 most dangerous hours in Hollywood (and crimes per hour)\n')
                     print("Times are listed in military time.")
@@ -487,6 +507,7 @@ while True:
                     dangerous_hours_str = '\n'.join([line for line in str(dangerous_hours).split('\n') if 'dtype' not in line])
                     print(dangerous_hours_str, "\n")
 
+                #only prints analysis question 6
                 elif (select_3 == "6"):
                     data_frame['DATE OCC'] = pd.to_datetime(data_frame['DATE OCC'])
                     pd.set_option('display.max_rows', 10)
@@ -510,14 +531,14 @@ while True:
                     # Drop the 'Report Time Difference' column
                     data_frame.drop('Report Time Difference', axis=1, inplace=True)
                 
-                
+                #only prints analysis question 7
                 elif (select_3 == "7"):
                     print(formatted_time, f'Top 10 most common crime types of all years')
                     top10 = data_frame.groupby('Crm Cd Desc').size().sort_values(ascending=False)
                     common_crimes = top10.head(10)
                     print(common_crimes,"\n")
 
-                
+                #only prints analysis question 8
                 elif (select_3 == "8"):
                     print(formatted_time, f'Are women or men more likely to be a victim in LA between 11:00am to 1:00pm?')
                     time_filtered_data = data_frame[(data_frame['TIME OCC'].apply(lambda x: int(str(x).zfill(4)[:2])) >= 11) & (data_frame['TIME OCC'].apply(lambda x: int(str(x).zfill(4)[:2])) < 13)]
@@ -536,6 +557,7 @@ while True:
                 
                     print(gender_victim_analysis, "\n")
                 
+                #only prints analysis question 9
                 elif (select_3 == "9"):
                     print(formatted_time,
                         f'Month with most credit card frauds in LA in 2019: ')
@@ -559,6 +581,7 @@ while True:
                     highest_fraud = months[index]
                     print(highest_fraud, "\n")
                 
+                #only prints analysis question 10
                 elif (select_3 == "10"):
                     #Most dangerous areas for men 65 or older
                     print(formatted_time, f'Top 5 most dangerous areas for older men (age from 65+) in december of 2018.')
@@ -579,7 +602,7 @@ while True:
                         print(arr[i])
                         i = i + 1
               
-                   
+                # will print all the data analysis questions
                 elif (select_3 == "11"):
                     data_frame['DATE OCC'] = pd.to_datetime(data_frame['DATE OCC'], format = formatted_time2)
                     data_frame['year'] = data_frame['DATE OCC'].dt.year  # add this line to create 'year' column
@@ -709,7 +732,7 @@ while True:
             except Exception as error3:
                 print(f"{type(error3)}: {error3}")
                
-
+        # will print data set if option 4 is chosen
         elif (select == "4"):
             try:
                 print("Printing the data_frame. (This may takes a long time)")
@@ -717,6 +740,7 @@ while True:
             except Exception as er:
                 print("File has not loaded.")
 
+        # if option 5 is selected, the program will end 
         elif (select == "5"):
             exit(0)
        
